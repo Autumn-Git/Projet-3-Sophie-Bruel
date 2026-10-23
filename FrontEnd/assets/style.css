@@ -186,3 +186,32 @@ footer nav ul {
 	margin: 2em
 }
 
+
+
+/* code rajouté */
+
+.filter{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 8px;
+	margin-bottom: 50px;
+}
+.btn-filter{
+	color: #1D6154;
+	background-color: white;
+	border: 1px solid #1D6154;
+	height: 37px;
+	padding: 0 20px;
+	border-radius: 60px;
+}
+.all{
+	background-color: #1D6154;
+	color: white;
+}
+.btn-filter:hover{
+	background-color: #1D6154;
+	color: white;
+	transition: 0.5s;
+	cursor: pointer;
+}
