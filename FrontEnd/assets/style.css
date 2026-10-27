@@ -28,8 +28,20 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
+:root {
+    --primary-color: #1D6154;
+    --secondary-color: #B1663C;
+    --background-color: #FFFEF8;
+}
 body {
 	line-height: 1;
+	background-color: var(--background-color);
+	min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+main{
+	flex: 1;
 }
 ol, ul {
 	list-style: none;
@@ -68,7 +80,7 @@ h1{
 	font-family: 'Syne';
 	font-size: 22px;
 	font-weight: 800;
-	color: #B1663C
+	color: var(--secondary-color)
 }
 
 h1 > span {
@@ -82,7 +94,7 @@ h2{
 	font-family: 'Syne';
 	font-weight: 700;
 	font-size: 30px;
-	color: #1D6154
+	color: var(--primary-color);
 }
 nav ul {
 	display: flex;
@@ -90,13 +102,20 @@ nav ul {
 	list-style-type: none;
 
 }
-nav li {
+nav a {
 	padding: 0 10px;
 	font-size: 1.2em;
+	text-decoration: none;
+	color: black;
 }
 
-li:hover {
-	color: #B1663C;
+nav a:hover {
+	color: var(--secondary-color);
+	text-decoration: none;
+}
+nav a:focus {
+	font-weight: 600;
+	color: black;
 }
 #introduction {
 	display: flex;
@@ -137,34 +156,59 @@ li:hover {
 	width: 100%;
 
 }
-#contact {
+#contact, 
+#connexion {
 	width: 50%;
 margin: auto;
 }
-#contact > * {
+#connexion{
+	padding: 50px 0px;
+}
+#lost_password{
+	color: black;
+	text-decoration: underline;
+	text-align: center;
+}
+#lost_password:hover{
+	color: var(--primary-color);
+}
+#contact, 
+#connexion > * {
 	text-align: center;
 
 }
 #contact h2{
 	margin-bottom: 20px;
 }
-#contact form {
+#connexion h1{
+	font-family: 'Syne';
+	font-weight: 700;
+	font-size: 30px;
+	color: var(--primary-color);
+	margin-bottom: 20px;
+}
+#contact form,
+#connexion form {
 	text-align: left;
 	margin-top:30px;
 	display: flex;
 	flex-direction: column;
 }
 
-#contact input {
+#contact input, 
+#connexion input {
 	height: 50px;
-	font-size: 1.2em;
+	font-size: 14px;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	cursor: pointer;
 }
-#contact label {
+#contact label, 
+#connexion label {
 	margin: 2em 0 1em 0;
 }
-#contact textarea {
+#contact textarea, 
+#connexion textarea {
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
@@ -173,7 +217,7 @@ input[type="submit"]{
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
-	background-color: #1D6154;
+	background-color: var(--primary-color);
 	margin : 2em auto ;
 	width: 180px;
 	text-align: center;
@@ -181,9 +225,11 @@ input[type="submit"]{
 }
 
 footer nav ul {
-	display: flex;
-	justify-content: flex-end;
-	margin: 2em
+    display: flex;
+    justify-content: flex-end;
+    margin: 0;
+    background-color: white;
+    padding: 20px;
 }
 
 
@@ -198,19 +244,19 @@ footer nav ul {
 	margin-bottom: 50px;
 }
 .btn-filter{
-	color: #1D6154;
+	color: var(--primary-color);
 	background-color: white;
-	border: 1px solid #1D6154;
+	border: 1px solid var(--primary-color);
 	height: 37px;
 	padding: 0 20px;
 	border-radius: 60px;
 }
 .all{
-	background-color: #1D6154;
+	background-color: var(--primary-color);
 	color: white;
 }
 .btn-filter:hover{
-	background-color: #1D6154;
+	background-color: var(--primary-color);
 	color: white;
 	transition: 0.5s;
 	cursor: pointer;
