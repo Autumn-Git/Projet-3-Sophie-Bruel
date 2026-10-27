@@ -1,3 +1,22 @@
+let works = [];
+
+fetch("http://localhost:5678/api/works")
+    .then(response => response.json())
+    .then(function (data) {
+        works = data;
+        displayWorks(works);
+    });
+
+  fetch("http://localhost:5678/api/categories")
+  .then(response => response.json())
+  .then(function (categories) {
+    console.log(categories);    //a retirer
+    displayFilter(categories)
+  });
+
+
+
+
 
 function displayWorks(works) {
     const gallery = document.querySelector(".gallery");
@@ -16,21 +35,13 @@ function displayWorks(works) {
         gallery.appendChild(workElement);
   }
 }
-fetch("http://localhost:5678/api/works")
-  .then(function (reponse) {
-    return reponse.json();
-  })
-  .then(function (works) {
-    console.log(works);   //a retirer
-    displayWorks(works)
-  });
-
 
 
 
 
 function displayFilter(categories) {
     const filter = document.querySelector(".filter");
+    const gallery = document.querySelector(".gallery");
 
     const buttonAll = document.createElement("button")
     buttonAll.innerText = "Tous"
@@ -44,14 +55,29 @@ function displayFilter(categories) {
         button.innerText = categories[i].name
         button.classList.add("btn-filter")
         filter.appendChild(button)
+
+        button.addEventListener("click", function() {
+          console.log(works[i].categoryId)
+          filterWorks(categories[i].id, works);
+        })
     }
+    buttonAll.addEventListener("click", function() {
+        gallery.innerHTML = "";
+        displayWorks(works)
+    })
 }
 
-fetch("http://localhost:5678/api/categories")
-  .then(function (reponse) {
-    return reponse.json();
-  })
-  .then(function (categories) {
-    console.log(categories);    //a retirer
-    displayFilter(categories)
-  });
+
+
+function filterWorks(categoryId, works){
+      const listeFilter = []
+      
+      for (let i = 0; i < works.length; i++) {
+        if (categoryId === works[i].categoryId) {
+          listeFilter.push(works[i]);
+        }
+      }
+      const gallery = document.querySelector(".gallery");
+      gallery.innerHTML = "";
+      displayWorks(listeFilter)
+}
