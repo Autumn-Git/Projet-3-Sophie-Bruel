@@ -288,25 +288,7 @@ footer nav ul {
 	max-width: 1440px;
 }
 /* j'ai l'impression que mes a sont tous les mêmes donc esayer de toutes les mettres en color black et hover secondary color*/
-/*.modifs_projets a{ 
-	color: black;
-	text-decoration: none; 
-}
-.modifs_projets a:hover{
-	color: var(--secondary-color);
-}
-.modifs_projets{
-	display: inline-block;
-}
-.alignement{
-	display: inline-block;
-}
-.alignement_portolio{
-	display: flex;
-	justify-content: center;
-	text-align: center;
-	align-items: center;
-}*/
+
 .title_section {
     display: flex;
     justify-content: center;
@@ -318,15 +300,169 @@ footer nav ul {
 .title_section h2 {
     margin: 0;
 }
-.title_section a{
+/*.title_section a{
+	text-decoration: none;
+	color: black;
+	text-align: center;
+} 
+.title_section a:hover{
+	color: var(--secondary-color);
+} */
+.title_section_content{
+	gap: 8px;
+}
+/*Fenetre modal */
+#openModal{
 	text-decoration: none;
 	color: black;
 	text-align: center;
 }
-.title_section a:hover{
+#openModal:hover{
 	color: var(--secondary-color);
+	cursor: pointer;
 }
-.title_section_content{
-	gap: 8px;
+.modalWindow {
+	position: fixed;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.modal-wrapper{
 	display: none;
+	overflow: auto;
+	width: 630px;
+    height: 470px;
+    padding: 20px 0;
+	background-color: #FFFEF8;
+	border-radius: 10px;
+}
+#closeModal{
+	display: block;
+    margin-left: auto;
+    padding: 0 30px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+.boutonStyleAddModal{
+    padding: 20px 30px;
+    border: none;
+    color: black;
+    font-size: 24px;
+	cursor: pointer;
+	background-color: transparent;
+}
+.arrowCroix{
+	display: flex;
+	justify-content: space-between;
+}
+#title-modal{
+	font-size: 26px;
+	font-weight: 400;
+	color: black;
+	text-align: center;
+	margin-bottom: 30px;
+	font-family: 'Work Sans' ;
+}
+#btnGalleryModal{
+	color: white;
+	font-size: 16px;
+	border-radius: 20px;
+	height: 36px;
+	width: 237px;
+	background-color: var(--primary-color);
+	border: none;
+    display: block;
+    margin: auto;
+}
+#btnGalleryModal:hover{
+	opacity: 0.8;
+	cursor: pointer;
+	transition: 0.3s;
+}
+/*modal ajouter photo*/
+#addModal{
+	display: none;
+}
+.addImageModal{
+	padding: 30px;
+	border-radius: 6px;
+	background-color: #E8F1F6;
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	width: 67%;
+}
+.addImageModal i{
+	font-size: 85px;
+	color: #CBD6DC;
+	margin: auto;
+}
+.btnAddPicture{
+	border-radius: 50px;
+	background-color: #CBD6DC;
+    border: none;
+    height: 36px;
+    width: 173px;
+    margin: auto;
+    font-size: 14px;
+    color: #306685;
+    font-weight: 500;
+}
+.btnAddPicture:hover{
+	opacity: 0.8;
+	cursor: pointer;
+}
+.addImageModal p {
+    text-align: center;
+}
+
+/*formualire*/
+#addModalFormulaire form{
+    display: flex;
+    flex-direction: column;
+	margin: auto;
+    gap: 10px;
+    max-width: 420px;
+	padding-top: 30px;
+}
+
+#addModalFormulaire input,
+#addModalFormulaire select {
+	height: 50px;
+	font-size: 14px;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	cursor: pointer;
+	color: #444444;
+	font-family: 'Work Sans';
+	padding: 0px 15px;
+}
+#addModalFormulaire .trait {
+	margin: 30px 0;
+	border-bottom: 1px solid #B3B3B3;
+}
+#addModalFormulaire button {
+	font-weight: 400;
+	color: white;
+	background-color: #B3B3B3;
+	border: none;
+	margin: auto ;
+	height: 36px;
+	width: 237px;
+	text-align: center;
+	border-radius: 60px ;
+}
+#addModalFormulaire button:hover {
+	opacity: 0.8;
+	cursor: pointer;
+}
+#left {
+    margin-right: auto;
+    margin-left: 0;
 }

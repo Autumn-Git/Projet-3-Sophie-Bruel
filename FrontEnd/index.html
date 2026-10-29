@@ -13,6 +13,7 @@
     <meta name="description" content="" />
     <link rel="stylesheet" href="./assets/style.css" />
     <script src="./assets/javascript/script.js" defer></script>
+	<script src="./assets/javascript/modal.js" defer></script>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -43,6 +44,7 @@
         </nav>
       </header>
       <main>
+
         <section id="introduction">
           <figure>
             <img src="./assets/images/sophie-bluel.png" alt="" />
@@ -72,9 +74,50 @@
             <h2>Mes projets</h2>
 			<div class="title_section_content">
 				<i class="fa-solid fa-pen-to-square"></i>
-            	<a href="#">Modifier</a>
+            	<a href="#" id="openModal" >Modifier</a>
 			</div>
           </div>
+
+		  <aside class="modalWindow" style="display: flex;">
+			<div class="modal-wrapper"">
+				<div id="galleryModal">
+					<button id="closeModal" id=""left class="boutonStyleAddModal" alt="fermer la modale"><i class="fa-solid fa-xmark"></i></button>
+					<h2 id="title-modal">Galerie photo</h2>
+					<div id="displayGalleryModal"></div>
+					<button id="btnGalleryModal">Ajouter une photo</button>
+				</div>
+				
+				<div id="addModal">
+					<div class="arrowCroix">
+						<button id="" class="boutonStyleAddModal" alt="revenir en arrière"><i class="fa-solid fa-arrow-left-long"></i></button>
+						<button id="closeModal"  class="boutonStyleAddModal" alt="fermer la modale"><i class="fa-solid fa-xmark"></i></button>
+					</div>
+
+					<h2 id="title-modal">Ajout photo</h2>
+					<div class="addImageModal">
+						<i class="fa-regular fa-image"></i>
+						<button class="btnAddPicture" alt="fermer la modal">+ Ajouter photo</button>
+						<p>jpg, png : 4mo max</p>
+					</div>
+
+					<div id="addModalFormulaire">
+					<form action="#" method="post">
+    					<label for="titre">Titre</label>
+    					<input type="text" id="titre" name="titre">
+    					<label for="categorie">Catégorie</label>
+    					<select id="categorie" name="categorie" >
+        
+    					</select>
+						<div class="trait"></div>
+    					<button type="submit">Valider</button>
+					</form>
+					</div>
+				</div>
+				
+				
+				
+			</div>
+		  </aside>
 
           <div class="filter"></div>
 
