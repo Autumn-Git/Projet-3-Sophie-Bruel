@@ -1,5 +1,4 @@
-
-
+/*tu maitrises cette partie*/
 const openModal = document.getElementById("openModal")
 const modalWindow = document.querySelector(".modalWindow")
 const closeModal = document.getElementById("closeModal")
@@ -12,6 +11,7 @@ closeModal.addEventListener("click", openAndCloseModal);
 btnGalleryModal.addEventListener("click", openAndCloseModal)
 returnGalleryModal.addEventListener("click", openAndCloseModal)
 
+/*tu maitrises cette fonction*/
 function openAndCloseModal(event) {
     event.preventDefault();
 
@@ -31,6 +31,7 @@ function openAndCloseModal(event) {
     }
 }
 
+/*tu maitrises cette fonction*/
 function displayWorksModale(works){
     const displayGalleryModal = document.getElementById("displayGalleryModal");
 
@@ -49,24 +50,40 @@ function displayWorksModale(works){
        workElementModal.appendChild(trashElementModal);
 
        displayGalleryModal.appendChild(workElementModal);
+
+       trashElementModal.addEventListener("click", function (){
+        getId = works[i].id
+
+        deleteWorks(works[i].id);
+       })
 }
 }
 
 
-// function displayWorks(works) {
-//   const gallery = document.querySelector(".gallery");
 
-//   for (let i = 0; i < works.length; i++) {
-//     const workElement = document.createElement("figure");
+function deleteWorks(getId){
+    const token = localStorage.getItem("token");
 
-//     const imageElement = document.createElement("img");
-//     imageElement.src = works[i].imageUrl;
-//     const titleElement = document.createElement("figcaption");
-//     titleElement.innerText = works[i].title;
 
-//     workElement.appendChild(imageElement);
-//     workElement.appendChild(titleElement);
+    fetch(`http://localhost:5678/api/works/${getId}`, {
+      method: "DELETE",
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    }).then(function (response) {
+        if(response.ok){
+            works = works.filter(function(work){
+                return work.id !== getId;
+            })
+            displayWorksModale(works)
+            const gallery = document.querySelector(".gallery");
+            gallery.innerHTML = "";
+            displayWorks(works);
 
-//     gallery.appendChild(workElement);
-//   }
-// }
+        }else{
+            const error = document.querySelector(".error-message");
+            error.innerText = "La demande à échoué. Veuillez réessayer en vérifiant votre connexion";
+            console.log(error)
+        }
+      })
+    }

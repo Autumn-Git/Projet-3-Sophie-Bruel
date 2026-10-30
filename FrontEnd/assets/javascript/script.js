@@ -75,8 +75,6 @@ function filterWorks(categoryId, works) {
 
 
 
-// sophie.bluel@test.tld
-// S0phie
 
 // Cette focniton est comprise May bravo tu l'as fait avec le plan de Claude mais pas d'autres aides.
 function connexionChangement() {
@@ -104,3 +102,7 @@ function connexionChangement() {
 }
  
 connexionChangement();
+
+
+// sophie.bluel@test.tld
+// S0phie
