@@ -14,6 +14,13 @@ fetch("http://localhost:5678/api/categories")
     displayFilter(categories);
   });
 
+
+
+
+
+
+
+
 function displayWorks(works) {
   const gallery = document.querySelector(".gallery");
 
@@ -32,6 +39,13 @@ function displayWorks(works) {
   }
 }
 
+
+
+
+
+
+
+
 function displayFilter(categories) {
   const filter = document.querySelector(".filter");
   const gallery = document.querySelector(".gallery");
@@ -39,7 +53,6 @@ function displayFilter(categories) {
   const buttonAll = document.createElement("button");
   buttonAll.innerText = "Tous";
   buttonAll.classList.add("btn-filter");
-  buttonAll.classList.add("all");
 
   filter.appendChild(buttonAll);
 
@@ -60,6 +73,13 @@ function displayFilter(categories) {
   });
 }
 
+
+
+
+
+
+
+
 function filterWorks(categoryId, works) {
   const listeFilter = [];
 
@@ -76,23 +96,31 @@ function filterWorks(categoryId, works) {
 
 
 
-// Cette focniton est comprise May bravo tu l'as fait avec le plan de Claude mais pas d'autres aides.
-function connexionChangement() {
+
+
+
+
+// Fonction comprises
+
+function changeEditionMode() {
   const token = localStorage.getItem("token");
- 
+
   if (token) {
     const edition_mode = document.querySelector(".edition_mode");
-    const title_section_content = document.querySelector(".title_section_content");
+    const title_section_content = document.querySelector(
+      ".title_section_content",
+    );
     const filter = document.querySelector(".filter");
     const connexion = document.getElementById("connexion");
-    const header = document.querySelector(".header")
- 
+    const header = document.querySelector(".header");
+
     edition_mode.style.display = "flex";
     title_section_content.style.display = "flex";
     filter.classList.add("cache");
+    title_section_content.classList.add("cache");
     connexion.innerText = "logout";
     header.style.margin = "100px 0 50px";
- 
+
     connexion.addEventListener("click", function (event) {
       event.preventDefault();
       localStorage.removeItem("token");
@@ -100,9 +128,8 @@ function connexionChangement() {
     });
   }
 }
- 
-connexionChangement();
 
+changeEditionMode();
 
 // sophie.bluel@test.tld
 // S0phie

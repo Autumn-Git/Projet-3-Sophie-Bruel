@@ -68,9 +68,16 @@ body {
 	margin:auto;
 }
 header {
-	display: flex;
-	justify-content: space-between;
-	margin: 50px 0
+    display: flex;
+    justify-content: space-between;
+    margin: 50px 0;
+}
+.header-connexion {
+  width: 100%;
+  max-width: 1140px;
+  margin: 50px auto;
+  padding: 0 20px;
+  box-sizing: border-box;
 }
 section {
 	margin: 50px 0
@@ -102,6 +109,7 @@ nav ul {
 	display: flex;
 	align-items: center;
 	list-style-type: none;
+	gap: 30px;
 
 }
 nav a {
@@ -115,13 +123,16 @@ nav a:hover {
 	color: var(--secondary-color);
 	text-decoration: none;
 }
+
 nav a:focus {
-	font-weight: 600;
+	font-weight: 700;
 	color: black;
 }
+
 #introduction {
 	display: flex;
 	align-items: center;
+	margin: 100px 0;
 }
 #introduction figure {
 	flex: 1
@@ -142,10 +153,7 @@ nav a:focus {
 #introduction p {
 	margin-bottom: 0.5em;
 }
-/*#portfolio h2 {
-	text-align: center;
-	margin-bottom: 1em;
-}*/
+
 .gallery {
 	width: 100%;
 	display: grid;
@@ -199,11 +207,18 @@ margin: auto;
 
 #contact input, 
 #connexion input {
-	height: 50px;
+	height: 37px;
 	font-size: 14px;
+	padding-left: 10px;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 	cursor: pointer;
+}
+
+
+#connexion_submit:hover{
+	background-color: var(--secondary-color);
+	transition: 0.3s
 }
 #contact label, 
 #connexion label {
@@ -252,24 +267,22 @@ footer nav ul {
 	height: 37px;
 	padding: 0 20px;
 	border-radius: 60px;
+	font-family: 'Syne';
+	font-size: 16px;
 }
-.all{
-	background-color: var(--primary-color);
-	color: white;
-}
-.btn-filter:hover{
+.btn-filter:hover, .btn-filter:focus{
 	background-color: var(--primary-color);
 	color: white;
 	transition: 0.5s;
 	cursor: pointer;
 }
 .error-message{
+	font-family: 'Syne';
 	color: red;
-	background-color: cornsilk;
 	padding: 20px;
 	margin-top: 30px;
 	text-align: center;
-	font: 15px;
+	font-size: 15px;
 	border-radius: 20px;
 }
 .cache{
@@ -294,21 +307,15 @@ footer nav ul {
     justify-content: center;
     align-items: center;
     gap: 40px;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
 }
 
 .title_section h2 {
     margin: 0;
 }
-/*.title_section a{
-	text-decoration: none;
-	color: black;
-	text-align: center;
-} 
-.title_section a:hover{
-	color: var(--secondary-color);
-} */
+
 .title_section_content{
+	display: none;
 	gap: 8px;
 }
 /*Fenetre modal */
@@ -323,7 +330,7 @@ footer nav ul {
 }
 .modalWindow {
 	position: fixed;
-    display: flex;
+    display: none;
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
@@ -331,19 +338,27 @@ footer nav ul {
 	left: 0;
     width: 100%;
     height: 100%;
+	background-color: rgba(0, 0, 0, 0.3);
+	transition: 0.3s;
 }
 #galleryModal{
-	display: block;
+	display: flex;
+	flex-direction: column;
+}
+.gapGalleryModal{
+	display: flex;
+	flex-direction: column;
+	gap: 40px;
 }
 .modal-wrapper{
 	overflow: auto;
 	width: 630px;
-    height: 470px;
+    height: 670px;
     padding: 20px 0;
 	background-color: #FFFEF8;
 	border-radius: 10px;
 }
-#closeModal{
+.closeModal{
 	display: block;
     margin-left: auto;
     padding: 0 30px;
@@ -373,7 +388,7 @@ footer nav ul {
 }
 #btnGalleryModal{
 	color: white;
-	font-size: 16px;
+	font-size: 14px;
 	border-radius: 20px;
 	height: 36px;
 	width: 237px;
@@ -381,6 +396,7 @@ footer nav ul {
 	border: none;
     display: block;
     margin: auto;
+	font-family: 'Syne' ;
 }
 #btnGalleryModal:hover{
 	opacity: 0.8;
@@ -401,12 +417,12 @@ footer nav ul {
 	gap: 15px;
 	width: 67%;
 }
-.addImageModal i{
+.iconeAddImage{
 	font-size: 85px;
 	color: #CBD6DC;
 	margin: auto;
 }
-.btnAddPicture{
+#addImage{
 	border-radius: 50px;
 	background-color: #CBD6DC;
     border: none;
@@ -417,14 +433,20 @@ footer nav ul {
     color: #306685;
     font-weight: 500;
 }
-.btnAddPicture:hover{
+#addImage:hover{
 	opacity: 0.8;
 	cursor: pointer;
 }
 .addImageModal p {
     text-align: center;
 }
-
+#previewImage {
+	margin: auto;
+    width: 129px;
+    height: 169px;
+	object-fit: cover;
+	transition: 0.3s;
+}
 /*formualire*/
 #addModalFormulaire form{
     display: flex;
@@ -477,19 +499,33 @@ footer nav ul {
 	grid-column-gap: 10px;
 	grid-row-gap: 10px;
 	margin: auto;
+	position: relative;
+	border-bottom: 1px solid #B3B3B3;
+	padding-bottom: 40px;
 }
 
 #displayGalleryModal img {
 	width: 100%;
 
 }
+.workElementModal{
+	position: relative;
+}
 .trashModal{
-	font-size: 17px;
+	font-size: 13px;
 	color: white;
 	background-color: black;
-	opacity: 0.8;
+	padding: 5px;
+	position: absolute;
+	border: none;
+	border-radius: 2px;
+	top: 5px;
+	right: 5px;
+
 }
 .trashModal:hover{
-	opacity: 0.5;
+	color: black;
+	background-color: white;
+	transition: 0.2s;
 	cursor: pointer;
 }
