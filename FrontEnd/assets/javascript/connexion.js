@@ -2,7 +2,7 @@ function listenerConnexion() {
   const formulaireConnexion = document.querySelector(".formulaireConnexion");
   formulaireConnexion.addEventListener("submit", function (event) {
     event.preventDefault();
-    //console.log("j'ai cliqué");
+
 
     const identifiants = {
       email: event.target.querySelector("[name=email]").value,
@@ -18,12 +18,10 @@ function listenerConnexion() {
     })
       .then((response) => response.json())
       .then(function (data) {
-        // ← 2e .then : reçoit le CONTENU
         console.log(data);
         if (data.token) {
           localStorage.setItem("token", data.token);
           window.location.href = "index.html";
-          //console.log("c'est bon t'es connecté mon pote");
         } else {
           const error = document.querySelector(".error-message");
           error.innerText = "Erreur dans l'identifiant ou le mot de passe";
@@ -36,6 +34,3 @@ function listenerConnexion() {
 
 listenerConnexion();
 
-
-// sophie.bluel@test.tld
-// S0phie

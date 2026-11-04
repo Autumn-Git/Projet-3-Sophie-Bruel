@@ -1,10 +1,11 @@
-let works = [];
+let works = []; // virer le let works = [] pour ne pas avoir de conflit avec le let works = [] du script.js
 
 fetch("http://localhost:5678/api/works")
   .then((response) => response.json())
   .then(function (data) {
     works = data;
     displayWorks(works);
+    //displayWorksModale(works); // à virer pour ne pas avoir de conflit avec le displayWorksModale(works) du modal.js
   });
 
 fetch("http://localhost:5678/api/categories")
@@ -12,6 +13,7 @@ fetch("http://localhost:5678/api/categories")
   .then(function (categories) {
     console.log(categories); //a retirer
     displayFilter(categories);
+    fillCategoryForm(categories);
   });
 
 
@@ -63,11 +65,11 @@ function displayFilter(categories) {
     filter.appendChild(button);
 
     button.addEventListener("click", function () {
-      //console.log(works[i].categoryId);
       filterWorks(categories[i].id, works);
     });
   }
   buttonAll.addEventListener("click", function () {
+    //faire une boucle sur les enfants de ma galerie pour les suprimer (remove element)
     gallery.innerHTML = "";
     displayWorks(works);
   });
@@ -92,6 +94,8 @@ function filterWorks(categoryId, works) {
   gallery.innerHTML = "";
   displayWorks(listeFilter);
 }
+//plutot que de supprimer pk pas faire des display none à la place ?
+// et retirer innerHTYML "", faire une boucle à la place
 
 
 

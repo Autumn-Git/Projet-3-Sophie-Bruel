@@ -472,8 +472,9 @@ footer nav ul {
 	margin: 30px 0;
 	border-bottom: 1px solid #B3B3B3;
 }
-#addModalFormulaire button {
+#btnForm {
 	font-weight: 400;
+	font-family: 'Syne';
 	color: white;
 	background-color: #B3B3B3;
 	border: none;
@@ -483,7 +484,7 @@ footer nav ul {
 	text-align: center;
 	border-radius: 60px ;
 }
-#addModalFormulaire button:hover {
+#btnForm:hover {
 	opacity: 0.8;
 	cursor: pointer;
 }

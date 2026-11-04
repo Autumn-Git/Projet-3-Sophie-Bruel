@@ -106,15 +106,16 @@
 					</div>
 
 					<div id="addModalFormulaire">
-					<form action="#" method="post">
+					<form id="formulaireAjoutPhoto" action="#" method="post">
     					<label for="titre">Titre</label>
-    					<input type="text" id="titre" name="titre">
+    					<input type="text" id="titreForm" name="titre">
     					<label for="categorie">Catégorie</label>
-    					<select id="categorie" name="categorie" >
+    					<select id="categorySelect" name="categorie" >
         
     					</select>
 						<div class="trait"></div>
-    					<button type="submit">Valider</button>
+    					<button id="btnForm" type="submit">Valider</button>
+						<p id="errorSelect" class="error-message"></p>
 					</form>
 					</div>
 				</div>
