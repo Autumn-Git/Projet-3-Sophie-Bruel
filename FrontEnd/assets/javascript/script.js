@@ -1,38 +1,54 @@
-let works = []; // virer le let works = [] pour ne pas avoir de conflit avec le let works = [] du script.js
+ let works = []; // virer le let works = [] pour ne pas avoir de conflit avec le let works = [] du script.js
+// fetch("http://localhost:5678/api/works")
+//   .then((response) => response.json())
+//   .then((json) => {
+//     console.log(json);
+//   })
 
-fetch("http://localhost:5678/api/works")
+
+ fetch("http://localhost:5678/api/works")
   .then((response) => response.json())
   .then(function (data) {
     works = data;
-    displayWorks(works);
-    //displayWorksModale(works); // à virer pour ne pas avoir de conflit avec le displayWorksModale(works) du modal.js
-  });
+     displayWorks(works);
+     displayWorksModale(works); // à virer pour ne pas avoir de conflit avec le displayWorksModale(works) du modal.js
+ });
+
+// fetch("http://localhost:5678/api/categories")
+//   .then((response) => response.json())
+//   // .then((json) => {
+//   //   console.log(json);
+//   // })
+//   .then(function (categories) {
+//     displayFilter(categories);
+//     fillCategoryForm(categories);
+//   });
+
+
+
+// fetch("http://localhost:5678/api/works")
+//   .then(response => response.json())
+//   .then(works => {
+//       displayWorks(works);
+//   })
 
 fetch("http://localhost:5678/api/categories")
   .then((response) => response.json())
-  .then(function (categories) {
-    console.log(categories); //a retirer
-    displayFilter(categories);
+  .then(categories => {
+    console.log(categories);
+    displayFilter(categories)
     fillCategoryForm(categories);
-  });
-
-
-
-
-
-
-
+  })
 
 function displayWorks(works) {
   const gallery = document.querySelector(".gallery");
-
-  for (let i = 0; i < works.length; i++) {
+  for (let i = 0; i < works.length; i++){
     const workElement = document.createElement("figure");
 
     const imageElement = document.createElement("img");
     imageElement.src = works[i].imageUrl;
     const titleElement = document.createElement("figcaption");
-    titleElement.innerText = works[i].title;
+    titleElement.innerText = works[i].title
 
     workElement.appendChild(imageElement);
     workElement.appendChild(titleElement);
@@ -42,20 +58,12 @@ function displayWorks(works) {
 }
 
 
-
-
-
-
-
-
 function displayFilter(categories) {
   const filter = document.querySelector(".filter");
-  const gallery = document.querySelector(".gallery");
 
   const buttonAll = document.createElement("button");
   buttonAll.innerText = "Tous";
   buttonAll.classList.add("btn-filter");
-
   filter.appendChild(buttonAll);
 
   for (let i = 0; i < categories.length; i++) {
@@ -64,16 +72,17 @@ function displayFilter(categories) {
     button.classList.add("btn-filter");
     filter.appendChild(button);
 
-    button.addEventListener("click", function () {
+    button.addEventListener("click", () => {
       filterWorks(categories[i].id, works);
-    });
-  }
-  buttonAll.addEventListener("click", function () {
-    //faire une boucle sur les enfants de ma galerie pour les suprimer (remove element)
-    gallery.innerHTML = "";
-    displayWorks(works);
-  });
+    })
 }
+buttonAll.addEventListener("click", () => {
+  const gallery = document.querySelector(".gallery");
+  gallery.replaceChildren();
+  displayWorks(works);
+})
+}
+
 
 
 
@@ -91,13 +100,9 @@ function filterWorks(categoryId, works) {
     }
   }
   const gallery = document.querySelector(".gallery");
-  gallery.innerHTML = "";
+  gallery.replaceChildren();
   displayWorks(listeFilter);
 }
-//plutot que de supprimer pk pas faire des display none à la place ?
-// et retirer innerHTYML "", faire une boucle à la place
-
-
 
 
 

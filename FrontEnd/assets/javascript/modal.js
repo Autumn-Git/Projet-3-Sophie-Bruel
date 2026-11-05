@@ -42,7 +42,7 @@ function openAndCloseModal(event) {
 function displayWorksModale(works) {
   const displayGalleryModal = document.getElementById("displayGalleryModal");
 
-  displayGalleryModal.innerHTML = "";
+  displayGalleryModal.replaceChildren();
 
   for (let i = 0; i < works.length; i++) {
     const workElementModal = document.createElement("figure");
@@ -82,7 +82,7 @@ function deleteWorks(getId) {
       });
       displayWorksModale(works);
       const gallery = document.querySelector(".gallery");
-      gallery.innerHTML = "";
+      gallery.replaceChildren();
       displayWorks(works);
     } else {
       const error = document.querySelector(".error-message");
@@ -137,67 +137,7 @@ function fillCategoryForm(categories) {
     }
 }
 
-// function validerFormulaire() {
-//     const formulaireAjoutPhoto = document.getElementById("formulaireAjoutPhoto");
-//     const errorSelect = document.getElementById("errorSelect");
-
-
-
-//     formulaireAjoutPhoto.addEventListener("submit", (event) => {
-//         event.preventDefault();
-//         const image = document.getElementById("fileInput").files[0];
-//         const titreForm = document.getElementById("titreForm").value;
-//         const categorie = document.getElementById("categorySelect").value;
-//         const btnForm = document.getElementById("btnForm");
-
-//         if (!image){
-//             errorSelect.innerText = "Veuillez sélectionner une image";
-//             errorSelect.classList.add("error-message");
-//             errorSelect.style.marginTop = "5px";
-//         } else if (!titreForm) {
-//             errorSelect.innerText = "Veuillez saisir un titre";
-//             errorSelect.classList.add("error-message");
-//             errorSelect.style.marginTop = "5px"; 
-//         }else if (!categorie) {
-//             errorSelect.innerText = "Veuillez sélectionner une catégorie";
-//             errorSelect.classList.add("error-message");
-//             errorSelect.style.marginTop = "5px";
-//         }else{
-//             errorSelect.innerText = "";
-//             btnForm.style.backgroundColor = "#1D6154";
-//             btnForm.style.cursor = "pointer";
-
-//             const formData = new FormData();
-//             formData.append("image", image);
-//             formData.append("title", titreForm);
-//             formData.append("category", categorie);
-
-//             const token = localStorage.getItem("token");
-            
-//             fetch("http://localhost:5678/api/works", {
-//                 method: "POST",
-//                 headers: {
-//                     Authorization: `Bearer ${token}`,
-//                 },
-//                 body: formData,
-//             })
-//             .then((response) => response.json())
-//             .then((data) => {
-//                 console.log(data);
-//                 works.push(data);
-//                 displayWorksModale(works);
-//                 const gallery = document.querySelector(".gallery");
-//                 gallery.innerHTML = "";
-//                 displayWorks(works);
-//                 modalWindow.style.display = "none";
-//             })
-//             .catch((error) => {
-//                 console.error("Erreur lors de l'ajout de la photo :", error);
-//             });
-//         }
-//     });
-// }
-// validerFormulaire()
+// 
 
 
 // Vérifie le formulaire d'ajout, puis envoie le nouveau projet à l'API
@@ -266,7 +206,7 @@ function validerFormulaire() {
         works.push(newWork);
         displayWorksModale(works);
         const gallery = document.querySelector(".gallery");
-        gallery.innerHTML = "";
+        gallery.replaceChildren();
         displayWorks(works);
 
         // 5. On vide le formulaire et l'aperçu
