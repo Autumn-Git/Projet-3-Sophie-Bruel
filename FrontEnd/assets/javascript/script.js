@@ -1,47 +1,60 @@
- let works = []; // virer le let works = [] pour ne pas avoir de conflit avec le let works = [] du script.js
-// fetch("http://localhost:5678/api/works")
-//   .then((response) => response.json())
-//   .then((json) => {
-//     console.log(json);
-//   })
+
+getWorks()
+ .then((data) => {
+    saveWorks(data);
+    displayWorks(data);
+ })
+ .catch((error) => {
+    console.error("Erreur lors de la récupération des travaux :", error);
+    const savedWorks = readStorageWorks(); // mode secours, on appelle la derniere version des travaux stockée dans le localStorage
+    displayWorks(savedWorks);
+  })
 
 
- fetch("http://localhost:5678/api/works")
-  .then((response) => response.json())
-  .then(function (data) {
-    works = data;
-     displayWorks(works);
-     displayWorksModale(works); // à virer pour ne pas avoir de conflit avec le displayWorksModale(works) du modal.js
- });
-
-// fetch("http://localhost:5678/api/categories")
-//   .then((response) => response.json())
-//   // .then((json) => {
-//   //   console.log(json);
-//   // })
-//   .then(function (categories) {
-//     displayFilter(categories);
-//     fillCategoryForm(categories);
-//   });
+function getWorks() {
+  return fetch("http://localhost:5678/api/works")
+  .then(response => {
+    if (!response.ok) {
+      throw new Error("Erreur lors de la récupération des travaux");
+    }
+    return response.json();
+  })
+}
 
 
+// cette fonction en une phrase : « Je reçois un tableau, je le traduis en texte, et je le range dans le casier. »
+function saveWorks(works) { // la fonction saveWorks permet faire un tableau des travaux et de sauvegarder les travaux dans le localStorage
+  const worksString = JSON.stringify(works);  // on transforme le tableau en chaîne de caractères pour pouvoir le stocker dans le localStorage
+  localStorage.setItem("works", worksString); // on stocke la chaîne de caractères dans le localStorage avec la clé "works"
+}
 
-// fetch("http://localhost:5678/api/works")
-//   .then(response => response.json())
-//   .then(works => {
-//       displayWorks(works);
-//   })
+
+
+// « J’ouvre le casier ; s’il y a du texte, je le retraduis en tableau et je le renvoie ; sinon, je renvoie un tableau vide. »
+function readStorageWorks() {
+  const worksString = localStorage.getItem("works"); // elle va chercher works
+  if (worksString) { // le truthy : un texte non vide est considéré comme vrai
+    return JSON.parse(worksString);  // on transforme la chaîne de caractères en tableau pour pouvoir l'utiliser dans le code (l'inverse de JSON.stringify)
+  } else {
+    return [];
+  }
+}
+
 
 fetch("http://localhost:5678/api/categories")
   .then((response) => response.json())
   .then(categories => {
-    console.log(categories);
     displayFilter(categories)
     fillCategoryForm(categories);
   })
 
+
+
+
 function displayWorks(works) {
   const gallery = document.querySelector(".gallery");
+  gallery.replaceChildren();
+
   for (let i = 0; i < works.length; i++){
     const workElement = document.createElement("figure");
 
@@ -73,13 +86,13 @@ function displayFilter(categories) {
     filter.appendChild(button);
 
     button.addEventListener("click", () => {
-      filterWorks(categories[i].id, works);
+      filterWorks(categories[i].id);
     })
 }
 buttonAll.addEventListener("click", () => {
   const gallery = document.querySelector(".gallery");
   gallery.replaceChildren();
-  displayWorks(works);
+  displayWorks(readStorageWorks()); // on récupère la dernière version des travaux stockée dans le localStorage
 })
 }
 
@@ -91,7 +104,8 @@ buttonAll.addEventListener("click", () => {
 
 
 
-function filterWorks(categoryId, works) {
+function filterWorks(categoryId) {
+  const works = readStorageWorks(); // on récupère la dernière version des travaux stockée dans le localStorage
   const listeFilter = [];
 
   for (let i = 0; i < works.length; i++) {
@@ -102,6 +116,7 @@ function filterWorks(categoryId, works) {
   const gallery = document.querySelector(".gallery");
   gallery.replaceChildren();
   displayWorks(listeFilter);
+
 }
 
 
@@ -140,5 +155,3 @@ function changeEditionMode() {
 
 changeEditionMode();
 
-// sophie.bluel@test.tld
-// S0phie

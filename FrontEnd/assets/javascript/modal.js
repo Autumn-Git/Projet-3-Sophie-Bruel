@@ -20,13 +20,15 @@ function closeModalOnClickOutside(event) {
 }
 body.addEventListener("click", closeModalOnClickOutside);
 
+
+
 /*tu maitrises cette fonction*/
 function openAndCloseModal(event) {
   event.preventDefault();
 
   if (this.id === "openModal") {
     modalWindow.style.display = "flex";
-    displayWorksModale(works);
+    displayWorksModale(readStorageWorks());
   } else if (this.classList.contains("closeModal")) {
     modalWindow.style.display = "none";
   } else if (this.id === "btnGalleryModal") {
@@ -77,13 +79,13 @@ function deleteWorks(getId) {
     },
   }).then(function (response) {
     if (response.ok) {
-      works = works.filter(function (work) {
-        return work.id !== getId;
-      });
-      displayWorksModale(works);
-      const gallery = document.querySelector(".gallery");
-      gallery.replaceChildren();
-      displayWorks(works);
+      const allWorks = readStorageWorks();
+      const remainingWorks = allWorks.filter(function (work) {
+        return work.id !== getId; 
+    });
+    saveWorks(remainingWorks); // on met à jour le localStorage avec la nouvelle liste
+      displayWorksModale(remainingWorks);
+      displayWorks(remainingWorks); // on met à jour la galerie principale avec la nouvelle liste  
     } else {
       const error = document.querySelector(".error-message");
       error.innerText =
@@ -203,11 +205,11 @@ function validerFormulaire() {
         newWork.categoryId = parseInt(newWork.categoryId);
 
         // 4. Mise à jour de la liste et des deux galeries
+        const works = readStorageWorks();
         works.push(newWork);
-        displayWorksModale(works);
-        const gallery = document.querySelector(".gallery");
-        gallery.replaceChildren();
-        displayWorks(works);
+        saveWorks(works);
+        displayWorksModale(works); // on récupère la dernière version des travaux stockée dans le localStorage
+        displayWorks(works); // on récupère la dernière version des travaux stockée dans le localStorage
 
         // 5. On vide le formulaire et l'aperçu
         resetAddForm();
