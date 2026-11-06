@@ -1,101 +1,10 @@
-/*tu maitrises cette partie*/
-const openModal = document.getElementById("openModal");
+import { readStorageWorks, saveWorks } from "./storage.js";
+import { displayWorks } from "./gallery.js";
+import { displayWorksModale } from "./modal-gallery.js";
+
 const modalWindow = document.querySelector(".modalWindow");
-const closeModal = document.querySelectorAll(".closeModal");
-const btnGalleryModal = document.getElementById("btnGalleryModal");
-const returnGalleryModal = document.getElementById("returnGalleryModal");
-const body = document.querySelector("body");
 
-openModal.addEventListener("click", openAndCloseModal);
-closeModal.forEach((button) => {
-  button.addEventListener("click", openAndCloseModal);
-});
-btnGalleryModal.addEventListener("click", openAndCloseModal);
-returnGalleryModal.addEventListener("click", openAndCloseModal);
-
-function closeModalOnClickOutside(event) {
-  if (event.target === modalWindow) {
-    modalWindow.style.display = "none";
-  }
-}
-body.addEventListener("click", closeModalOnClickOutside);
-
-
-
-/*tu maitrises cette fonction*/
-function openAndCloseModal(event) {
-  event.preventDefault();
-
-  if (this.id === "openModal") {
-    modalWindow.style.display = "flex";
-    displayWorksModale(readStorageWorks());
-  } else if (this.classList.contains("closeModal")) {
-    modalWindow.style.display = "none";
-  } else if (this.id === "btnGalleryModal") {
-    galleryModal.style.display = "none";
-    addModal.style.display = "block";
-  } else if (this.id === "returnGalleryModal") {
-    galleryModal.style.display = "flex";
-    addModal.style.display = "none";
-  }
-}
-
-/*tu maitrises cette fonction*/
-function displayWorksModale(works) {
-  const displayGalleryModal = document.getElementById("displayGalleryModal");
-
-  displayGalleryModal.replaceChildren();
-
-  for (let i = 0; i < works.length; i++) {
-    const workElementModal = document.createElement("figure");
-    workElementModal.classList.add("workElementModal");
-
-    const imageElementModal = document.createElement("img");
-    imageElementModal.src = works[i].imageUrl;
-    const trashElementModal = document.createElement("button");
-    trashElementModal.classList.add("fa-solid", "fa-trash-can", "trashModal");
-
-    workElementModal.appendChild(imageElementModal);
-    workElementModal.appendChild(trashElementModal);
-
-    displayGalleryModal.appendChild(workElementModal);
-
-    trashElementModal.addEventListener("click", function () {
-      getId = works[i].id;
-
-      deleteWorks(works[i].id);
-    });
-  }
-}//
-
-
-function deleteWorks(getId) {
-  const token = localStorage.getItem("token");
-
-  fetch(`http://localhost:5678/api/works/${getId}`, {
-    method: "DELETE",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  }).then(function (response) {
-    if (response.ok) {
-      const allWorks = readStorageWorks();
-      const remainingWorks = allWorks.filter(function (work) {
-        return work.id !== getId; 
-    });
-    saveWorks(remainingWorks); // on met à jour le localStorage avec la nouvelle liste
-      displayWorksModale(remainingWorks);
-      displayWorks(remainingWorks); // on met à jour la galerie principale avec la nouvelle liste  
-    } else {
-      const error = document.querySelector(".error-message");
-      error.innerText =
-        "La demande à échoué. Veuillez réessayer en vérifiant votre connexion";
-      console.log(error);
-    }
-  });
-}
-
-function changeModalImage() {
+export function changeModalImage() {
   const addImage = document.getElementById("addImage");
   const fileInput = document.getElementById("fileInput");
   const iconeAddImage = document.querySelector(".iconeAddImage");
@@ -119,11 +28,10 @@ function changeModalImage() {
     }
   });
 }
-changeModalImage();
 
 
 
-function fillCategoryForm(categories) {
+export function fillCategoryForm(categories) {
     const categorySelect = document.getElementById("categorySelect");
 
     const optionDefault = document.createElement("option");
@@ -139,11 +47,11 @@ function fillCategoryForm(categories) {
     }
 }
 
-// 
+
 
 
 // Vérifie le formulaire d'ajout, puis envoie le nouveau projet à l'API
-function validerFormulaire() {
+export function validerFormulaire() {
   const formulaireAjoutPhoto = document.getElementById("formulaireAjoutPhoto");
   const errorSelect = document.getElementById("errorSelect");
 
@@ -224,7 +132,9 @@ function validerFormulaire() {
       });
   });
 }
-validerFormulaire();
+
+
+
 
 // Remet le formulaire d'ajout et la zone d'aperçu dans leur état de départ
 function resetAddForm() {
