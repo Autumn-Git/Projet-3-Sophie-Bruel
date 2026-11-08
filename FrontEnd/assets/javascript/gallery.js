@@ -43,7 +43,7 @@ export function displayFilter(categories) {
 buttonAll.addEventListener("click", () => {
   const gallery = document.querySelector(".gallery");
   gallery.replaceChildren();
-  displayWorks(readStorageWorks()); // on récupère la dernière version des travaux stockée dans le localStorage
+  displayWorks(readStorageWorks()); 
 })
 }
 
@@ -51,16 +51,16 @@ buttonAll.addEventListener("click", () => {
 
 
 function filterWorks(categoryId) {
-  const works = readStorageWorks(); // on récupère la dernière version des travaux stockée dans le localStorage
-  const listeFilter = [];
+  const works = readStorageWorks(); 
+  const listFilter = [];
 
   for (let i = 0; i < works.length; i++) {
     if (categoryId === works[i].categoryId) {
-      listeFilter.push(works[i]);
+      listFilter.push(works[i]);
     }
   }
   const gallery = document.querySelector(".gallery");
   gallery.replaceChildren();
-  displayWorks(listeFilter);
+  displayWorks(listFilter);
 
 }

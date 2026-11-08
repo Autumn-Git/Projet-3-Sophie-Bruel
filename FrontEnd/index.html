@@ -1,52 +1,51 @@
 <!doctype html>
 <html lang="fr">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <title>Sophie Bluel - Architecte d'intérieur</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
       href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap"
       rel="stylesheet"
-    />
-    <meta name="description" content="" />
-    <link rel="stylesheet" href="./assets/style.css" />
+    >
+    <meta name="description" content="">
+    <link rel="stylesheet" href="./assets/style.css">
     <script type="module" src="./assets/javascript/main.js"></script>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-    />
+    >
   </head>
 
 
-
-
   <body>
-    <section class="edition_mode">
+    <div class="edition_mode">
       <i class="fa-solid fa-pen-to-square"></i>
       <p>Mode édition</p>
-    </section>
+    </div>
 
     <section class="main-container">
 
       <header class="header">
         <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
-        <!--un peu chelou que du coup ça soit le meme h1 sur toutes les pages pour l'intégration...-->
         <nav>
           <ul>
             <li><a href="index.html">projets</a></li>
             <li><a href="#">contact</a></li>
             <li><a href="connexion.html" id="connexion">login</a></li>
-            <li><img src="./assets/icons/instagram.png" alt="Instagram" /></li>
+            <li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
           </ul>
         </nav>
       </header>
+
+
       <main>
 
-        <section id="introduction">
+        <div id="introduction">
           <figure>
-            <img src="./assets/images/sophie-bluel.png" alt="" />
+            <img src="./assets/images/sophie-bluel.png" alt="Sophie Bluel portrait">
           </figure>
           <article>
             <h2>Designer d'espace</h2>
@@ -66,76 +65,78 @@
               constituée : architecte DPLG, décorateur(trice)
             </p>
           </article>
-        </section>
+        </div>
 
         <section id="portfolio">
           <div class="title_section">
             <h2>Mes projets</h2>
-			<div class="title_section_content">
-				<i class="fa-regular fa-pen-to-square"></i>
-            	<a href="#" id="openModal" >Modifier</a>
-			</div>
+			      <div class="title_section_content">
+				      <i class="fa-regular fa-pen-to-square"></i>
+              <a href="#" id="openModal" >Modifier</a>
+			      </div>
           </div>
 
-		  <aside class="modalWindow">
-			<div class="modal-wrapper"">
+
+
+    <aside class="modalWindow">
+			<div class="modal-wrapper">
 
 				<div id="galleryModal">
-					<button class="closeModal boutonStyleAddModal" alt="fermer la modale"><i class="fa-solid fa-xmark"></i></button>
+					<button class="closeModal buttonStyleAddModal" aria-label="Supprimer la fenêtre"><i class="fa-solid fa-xmark"></i></button>
 					<div class="gapGalleryModal">
-						<h2 id="title-modal">Galerie photo</h2>
+						<h2 class="title-modal">Galerie photo</h2>
 						<div id="displayGalleryModal"></div>
-						<button id="btnGalleryModal">Ajouter une photo</button>
+            <p id="deleteError"></p>
+						<button id="btnGalleryModal" aria-label="Ajouter une photo">Ajouter une photo</button>
 					</div>
 				</div>
 				
 				<div id="addModal">
 					<div class="arrowCroix">
-						<button id="returnGalleryModal" class="boutonStyleAddModal" alt="revenir en arrière"><i class="fa-solid fa-arrow-left-long"></i></button>
-						<button class="closeModal boutonStyleAddModal" alt="fermer la modale"><i class="fa-solid fa-xmark"></i></button>
+						<button id="returnGalleryModal" class="boutonStyleAddModal" aria-label="Fenêtre précédente"><i class="fa-solid fa-arrow-left-long"></i></button>
+						<button class="closeModal buttonStyleAddModal" aria-label="Supprimer la fenêtre"><i class="fa-solid fa-xmark"></i></button>
 					</div>
 
-					<h2 id="title-modal">Ajout photo</h2>
+					<h2 class="title-modal">Ajout photo</h2>
 					<div class="addImageModal">
-						<i class="fa-regular fa-image iconeAddImage"></i>
+						<i class="fa-regular fa-image iconAddImage"></i>
 						<input type="file" id="fileInput" hidden>
-						<button id="addImage" alt="fermer la modal">+ Ajouter photo</button>
-						<img id="previewImage" alt="Aperçu de l'image sélectionnée" class="cache">
+						<button id="addImage" aria-label="Ajouter une photo">+ Ajouter photo</button>
+						<img src="" id="previewImage" alt="Aperçu de l'image sélectionnée" class="cache">
 						<p class="textAddImage">jpg, png : 4mo max</p>
 					</div>
 
-					<div id="addModalFormulaire">
-					<form id="formulaireAjoutPhoto" action="#" method="post">
-    					<label for="titre">Titre</label>
-    					<input type="text" id="titreForm" name="titre">
-    					<label for="categorie">Catégorie</label>
-    					<select id="categorySelect" name="categorie" >
-        
-    					</select>
-						<div class="trait"></div>
-    					<button id="btnForm" type="submit">Valider</button>
-						<p id="errorSelect" class="error-message"></p>
+					<div id="addModalForm">
+					<form id="formAddPhoto" action="#" method="post">
+    					<label for="title">Titre</label>
+    					<input type="text" id="title" name="title" placeholder="Titre de l'image">
+    					<label for="categorySelect">Catégorie</label>
+    					<select id="categorySelect" name="categorySelect" ></select>
+						  <div class="line"></div>
+    				  <button id="btnForm" type="submit" aria-label="Valider">Valider</button>
+						  <p id="errorSelect" class="error-message"></p>
 					</form>
 					</div>
 				</div>
 				
-				
-				
 			</div>
 		  </aside>
+
 
           <div class="filter"></div>
           <div class="gallery"></div>
         </section>
+
+
 
         <section id="contact">
           <h2>Contact</h2>
           <p>Vous avez un projet ? Discutons-en !</p>
           <form action="#" method="post">
             <label for="name">Nom</label>
-            <input type="text" name="name" id="name" />
+            <input type="text" name="name" id="name">
             <label for="email">Email</label>
-            <input type="email" name="email" id="email" />
+            <input type="email" name="email" id="email">
             <label for="message">Message</label>
             <textarea
               name="message"
@@ -143,7 +144,7 @@
               cols="30"
               rows="10"
             ></textarea>
-            <input type="submit" value="Envoyer" />
+            <input type="submit" value="Envoyer">
           </form>
         </section>
       </main>
@@ -156,5 +157,6 @@
           </ul>
         </nav>
       </footer>
+
   </body>
 </html>

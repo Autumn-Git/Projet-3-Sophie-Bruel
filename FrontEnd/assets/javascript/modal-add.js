@@ -1,13 +1,15 @@
 import { readStorageWorks, saveWorks } from "./storage.js";
 import { displayWorks } from "./gallery.js";
-import { displayWorksModale } from "./modal-gallery.js";
+import { displayWorksModal } from "./modal-gallery.js";
 
 const modalWindow = document.querySelector(".modalWindow");
+
+
 
 export function changeModalImage() {
   const addImage = document.getElementById("addImage");
   const fileInput = document.getElementById("fileInput");
-  const iconeAddImage = document.querySelector(".iconeAddImage");
+  const iconAddImage = document.querySelector(".iconAddImage");
   const textAddImage = document.querySelector(".textAddImage");
   const addImageModal = document.querySelector(".addImageModal");
   const previewImage = document.getElementById("previewImage");
@@ -20,7 +22,7 @@ export function changeModalImage() {
 
     if (image) {
       previewImage.src = URL.createObjectURL(image);
-      iconeAddImage.style.display = "none";
+      iconAddImage.style.display = "none";
       addImageModal.style.padding = 0;
       textAddImage.classList.add("cache");
       addImage.classList.add("cache");
@@ -49,50 +51,43 @@ export function fillCategoryForm(categories) {
 
 
 
-
-// Vérifie le formulaire d'ajout, puis envoie le nouveau projet à l'API
-export function validerFormulaire() {
-  const formulaireAjoutPhoto = document.getElementById("formulaireAjoutPhoto");
+export function initAddForm() {
+  const formAddPhoto = document.getElementById("formAddPhoto");
   const errorSelect = document.getElementById("errorSelect");
 
-  formulaireAjoutPhoto.addEventListener("submit", (event) => {
+  formAddPhoto.addEventListener("submit", (event) => {
     event.preventDefault();
 
-    // On lit les valeurs AU MOMENT de la soumission
     const fileInput = document.getElementById("fileInput");
     const image = fileInput.files[0];
-    const titreForm = document.getElementById("titreForm").value.trim();
-    const categorie = document.getElementById("categorySelect").value;
+    const titleForm = document.getElementById("titleForm").value.trim();
+    const category = document.getElementById("categorySelect").value;
 
-    // 1. Vérifications : on s'arrête au premier champ manquant
     if (!image) {
       errorSelect.innerText = "Veuillez sélectionner une image";
       errorSelect.classList.add("error-message");
       return;
     }
-    if (!titreForm) {
+    if (!titleForm) {
       errorSelect.innerText = "Veuillez saisir un titre";
       errorSelect.classList.add("error-message");
       return;
     }
-    if (!categorie) {
+    if (!category) {
       errorSelect.innerText = "Veuillez sélectionner une catégorie";
       errorSelect.classList.add("error-message");
       return;
     }
 
-    // Tout est rempli : on efface l'ancien message
     errorSelect.innerText = "";
 
-    // 2. Le colis à envoyer (noms attendus par l'API, voir le Swagger)
     const formData = new FormData();
     formData.append("image", image);
-    formData.append("title", titreForm);
-    formData.append("category", categorie);
+    formData.append("title", titleForm);
+    formData.append("category", category);
 
     const token = localStorage.getItem("token");
 
-    // 3. L'envoi
     fetch("http://localhost:5678/api/works", {
       method: "POST",
       headers: {
@@ -101,33 +96,26 @@ export function validerFormulaire() {
       body: formData,
     })
       .then((response) => {
-        // Le serveur a répondu, mais est-ce un succès (201) ?
         if (!response.ok) {
           throw new Error(`Erreur ${response.status}`);
         }
         return response.json();
       })
       .then((newWork) => {
-        // Le serveur renvoie la catégorie en texte ("2") : on la remet en nombre
-        // pour que les filtres fonctionnent sans recharger la page
         newWork.categoryId = parseInt(newWork.categoryId);
 
-        // 4. Mise à jour de la liste et des deux galeries
         const works = readStorageWorks();
         works.push(newWork);
         saveWorks(works);
-        displayWorksModale(works); // on récupère la dernière version des travaux stockée dans le localStorage
-        displayWorks(works); // on récupère la dernière version des travaux stockée dans le localStorage
+        displayWorksModal(works);
+        displayWorks(works); 
 
-        // 5. On vide le formulaire et l'aperçu
         resetAddForm();
         modalWindow.style.display = "none";
       })
       .catch((error) => {
-        // Refus du serveur (400, 401, 500...) ou serveur injoignable
         console.error(error);
-        errorSelect.innerText =
-          "L'ajout a échoué. Vérifiez que vous êtes bien connectée, puis réessayez.";
+        errorSelect.innerText = "L'ajout a échoué. Vérifiez que vous êtes bien connectée, puis réessayez.";
         errorSelect.classList.add("error-message");
       });
   });
@@ -136,25 +124,21 @@ export function validerFormulaire() {
 
 
 
-// Remet le formulaire d'ajout et la zone d'aperçu dans leur état de départ
 function resetAddForm() {
-  const formulaireAjoutPhoto = document.getElementById("formulaireAjoutPhoto");
+  const formAddPhoto = document.getElementById("formAddPhoto");
   const fileInput = document.getElementById("fileInput");
   const previewImage = document.getElementById("previewImage");
-  const iconeAddImage = document.querySelector(".iconeAddImage");
+  const iconAddImage = document.querySelector(".iconAddImage");
   const textAddImage = document.querySelector(".textAddImage");
   const addImage = document.getElementById("addImage");
   const addImageModal = document.querySelector(".addImageModal");
 
-  // Les champs du <form> (titre, catégorie)
-  formulaireAjoutPhoto.reset();
-  // L'input fichier est en dehors du <form> : on le vide à part
+  formAddPhoto.reset();
   fileInput.value = "";
 
-  // L'inverse de changeModalImage
   previewImage.removeAttribute("src");
   previewImage.classList.add("cache");
-  iconeAddImage.style.display = "";
+  iconAddImage.style.display = "";
   addImageModal.style.padding = "";
   textAddImage.classList.remove("cache");
   addImage.classList.remove("cache");

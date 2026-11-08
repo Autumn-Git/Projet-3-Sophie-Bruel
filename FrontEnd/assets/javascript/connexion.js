@@ -1,6 +1,6 @@
 function listenerConnexion() {
-  const formulaireConnexion = document.querySelector(".formulaireConnexion");
-  formulaireConnexion.addEventListener("submit", function (event) {
+  const formuConnexion = document.querySelector(".formuConnexion");
+  formuConnexion.addEventListener("submit", function (event) {
     event.preventDefault();
 
 
@@ -30,6 +30,11 @@ function listenerConnexion() {
 
         console.log(localStorage.getItem("token"));
       });
+      // .catch(function (error) {
+      //   console.error("Erreur lors de la requête :", error);
+      //   const errorMessage = document.querySelector(".error-message");
+      //   errorMessage.innerText = "Une erreur s'est produite. Veuillez réessayer plus tard.";
+      // });
   });
 }
 

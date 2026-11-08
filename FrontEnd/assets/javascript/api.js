@@ -7,6 +7,9 @@ export function getWorks() {
     return response.json();
   })
 }
+
+
+
 export function getCategories() {
   return fetch("http://localhost:5678/api/categories")
   .then(response => {

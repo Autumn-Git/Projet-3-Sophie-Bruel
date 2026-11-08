@@ -66,7 +66,7 @@ body {
 .main-container{
 	max-width: 1140px;
 	margin:auto;
-}
+} 
 header {
     display: flex;
     justify-content: space-between;
@@ -215,7 +215,6 @@ margin: auto;
 	cursor: pointer;
 }
 
-
 #connexion_submit:hover{
 	background-color: var(--secondary-color);
 	transition: 0.3s
@@ -248,8 +247,6 @@ footer nav ul {
     background-color: white;
     padding: 20px;
 }
-
-
 
 /* code rajouté */
 
@@ -366,7 +363,7 @@ footer nav ul {
     background: transparent;
     cursor: pointer;
 }
-.boutonStyleAddModal{
+.buttonStyleAddModal{
     padding: 20px 30px;
     border: none;
     color: black;
@@ -378,7 +375,7 @@ footer nav ul {
 	display: flex;
 	justify-content: space-between;
 }
-#title-modal{
+.title-modal{
 	font-size: 26px;
 	font-weight: 400;
 	color: black;
@@ -417,7 +414,7 @@ footer nav ul {
 	gap: 15px;
 	width: 67%;
 }
-.iconeAddImage{
+.iconAddImage{
 	font-size: 85px;
 	color: #CBD6DC;
 	margin: auto;
@@ -448,7 +445,7 @@ footer nav ul {
 	transition: 0.3s;
 }
 /*formualire*/
-#addModalFormulaire form{
+#addModalForm form{
     display: flex;
     flex-direction: column;
 	margin: auto;
@@ -457,8 +454,8 @@ footer nav ul {
 	padding-top: 30px;
 }
 
-#addModalFormulaire input,
-#addModalFormulaire select {
+#addModalForm input,
+#addModalForm select {
 	height: 50px;
 	font-size: 14px;
 	border: none;
@@ -468,7 +465,7 @@ footer nav ul {
 	font-family: 'Work Sans';
 	padding: 0px 15px;
 }
-#addModalFormulaire .trait {
+#addModalForm .line {
 	margin: 30px 0;
 	border-bottom: 1px solid #B3B3B3;
 }

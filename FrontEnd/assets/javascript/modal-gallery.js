@@ -4,16 +4,12 @@ import { displayWorks } from "./gallery.js";
 
 const galleryModal = document.getElementById("galleryModal");
 const addModal = document.getElementById("addModal");
-
-
-/*tu maitrises cette partie*/
 const openModal = document.getElementById("openModal");
 const modalWindow = document.querySelector(".modalWindow");
 const closeModal = document.querySelectorAll(".closeModal");
 const btnGalleryModal = document.getElementById("btnGalleryModal");
 const returnGalleryModal = document.getElementById("returnGalleryModal");
 const body = document.querySelector("body");
-
 
 
 
@@ -25,15 +21,12 @@ function closeModalOnClickOutside(event) {
 
 
 
-
-
-/*tu maitrises cette fonction*/
 function openAndCloseModal(event) {
   event.preventDefault();
 
   if (this.id === "openModal") {
     modalWindow.style.display = "flex";
-    displayWorksModale(readStorageWorks());
+    displayWorksModal(readStorageWorks());
   } else if (this.classList.contains("closeModal")) {
     modalWindow.style.display = "none";
   } else if (this.id === "btnGalleryModal") {
@@ -45,8 +38,9 @@ function openAndCloseModal(event) {
   }
 }
 
-/*tu maitrises cette fonction*/
-export function displayWorksModale(works) {
+
+
+export function displayWorksModal(works) {
   const displayGalleryModal = document.getElementById("displayGalleryModal");
 
   displayGalleryModal.replaceChildren();
@@ -71,32 +65,41 @@ export function displayWorksModale(works) {
   }
 }
 
+
+
 function deleteWorks(getId) {
-  const token = localStorage.getItem("token");
+    const errorMessage = document.getElementById("deleteError");
+    const token = localStorage.getItem("token");
 
-  fetch(`http://localhost:5678/api/works/${getId}`, {
-    method: "DELETE",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  }).then(function (response) {
-    if (response.ok) {
-      const allWorks = readStorageWorks();
-      const remainingWorks = allWorks.filter(function (work) {
-        return work.id !== getId;
-      });
-      saveWorks(remainingWorks); // on met à jour le localStorage avec la nouvelle liste
-      displayWorksModale(remainingWorks);
-      displayWorks(remainingWorks); // on met à jour la galerie principale avec la nouvelle liste
-    } else {
-      const error = document.querySelector(".error-message");
-      error.innerText =
-        "La demande à échoué. Veuillez réessayer en vérifiant votre connexion";
-      console.log(error);
-    }
-  });
+    fetch(`http://localhost:5678/api/works/${getId}`, {
+        method: "DELETE",
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    }).then(function (response) {
+            if (!response.ok) {
+                throw new Error("La suppression a échoué.");
+            }
+
+            errorMessage.innerText = "";
+            errorMessage.classList.remove("error-message");
+            const allWorks = readStorageWorks();
+
+            const remainingWorks = allWorks.filter(function (work) {
+                return work.id !== getId;
+            });
+
+            saveWorks(remainingWorks);
+            displayWorksModal(remainingWorks);
+            displayWorks(remainingWorks);
+        })
+        .catch(function (error) {
+            errorMessage.innerText = "La demande a échoué. Veuillez réessayer en vérifiant votre connexion.";
+            errorMessage.classList.add("error-message");
+
+            console.error(error);
+        });
 }
-
 
 
 
