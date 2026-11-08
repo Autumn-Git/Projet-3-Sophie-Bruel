@@ -1,12 +1,12 @@
 export function saveWorks(works) {
   const worksString = JSON.stringify(works);  
-  localStorage.setItem("works", worksString);
+  sessionStorage.setItem("works", worksString);
 }
 
 
 
 export function readStorageWorks() {
-    const worksString = localStorage.getItem("works");
+    const worksString = sessionStorage.getItem("works");
 
     try {
         if (worksString) {
@@ -16,7 +16,7 @@ export function readStorageWorks() {
         }
     } catch (error) {
         console.error("Impossible de lire les travaux enregistrés :", error);
-        localStorage.removeItem("works");
+        sessionStorage.removeItem("works");
         return [];
     }
 }

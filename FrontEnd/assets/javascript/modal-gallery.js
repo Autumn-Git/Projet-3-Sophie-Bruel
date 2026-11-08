@@ -26,7 +26,6 @@ function openAndCloseModal(event) {
 
   if (this.id === "openModal") {
     modalWindow.style.display = "flex";
-    displayWorksModal(readStorageWorks());
   } else if (this.classList.contains("closeModal")) {
     modalWindow.style.display = "none";
   } else if (this.id === "btnGalleryModal") {

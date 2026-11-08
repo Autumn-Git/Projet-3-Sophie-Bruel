@@ -7,6 +7,7 @@ export function displayWorks(works) {
 
   for (let i = 0; i < works.length; i++){
     const workElement = document.createElement("figure");
+    workElement.dataset.categoryId = works[i].categoryId;
 
     const imageElement = document.createElement("img");
     imageElement.src = works[i].imageUrl;
@@ -42,26 +43,25 @@ export function displayFilter(categories) {
     })
 }
 buttonAll.addEventListener("click", () => {
-  const gallery = document.querySelector(".gallery");
-  gallery.replaceChildren();
-  displayWorks(readStorageWorks()); 
+  const figures = document.querySelectorAll("figures")
+  for (let i = 0; i < figures.length; i++){
+    figures[i].classList.remove("cache");
+  }
 })
 }
 
 
 
+function filterWorks(categoryId){
+    const figures = document.querySelectorAll(".gallery figure")
+    
+    for(let i = 0; i < figures.length; i++){
+        const figureCategory = Number(figures[i].dataset.categoryId)
 
-function filterWorks(categoryId) {
-  const works = readStorageWorks(); 
-  const listFilter = [];
-
-  for (let i = 0; i < works.length; i++) {
-    if (categoryId === works[i].categoryId) {
-      listFilter.push(works[i]);
+        if(figureCategory === categoryId) {
+            figures[i].classList.remove("cache")
+        }else{
+            figures[i].classList.add("cache")
+        }
     }
-  }
-  const gallery = document.querySelector(".gallery");
-  gallery.replaceChildren();
-  displayWorks(listFilter);
-
 }
