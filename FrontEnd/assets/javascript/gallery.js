@@ -10,6 +10,7 @@ export function displayWorks(works) {
 
     const imageElement = document.createElement("img");
     imageElement.src = works[i].imageUrl;
+    imageElement.alt = works[i].title;
     const titleElement = document.createElement("figcaption");
     titleElement.innerText = works[i].title
 

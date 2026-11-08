@@ -1,10 +1,10 @@
 function listenerConnexion() {
-  const formuConnexion = document.querySelector(".formuConnexion");
-  formuConnexion.addEventListener("submit", function (event) {
+  const formConnexion = document.querySelector(".formConnexion");
+  formConnexion.addEventListener("submit", function (event) {
     event.preventDefault();
 
 
-    const identifiants = {
+    const credentials = {
       email: event.target.querySelector("[name=email]").value,
       password: event.target.querySelector("[name=password]").value,
     };
@@ -15,11 +15,10 @@ function listenerConnexion() {
         "Content-Type": "application/json",
         
       },
-      body: JSON.stringify(identifiants),
+      body: JSON.stringify(credentials),
     })
       .then((response) => response.json())
       .then(function (data) {
-        console.log(data);
         if (data.token) {
           localStorage.setItem("token", data.token);
           window.location.href = "index.html";
@@ -27,14 +26,12 @@ function listenerConnexion() {
           const error = document.querySelector(".error-message");
           error.innerText = "Erreur dans l'identifiant ou le mot de passe";
         }
-
-        console.log(localStorage.getItem("token"));
-      });
-      // .catch(function (error) {
-      //   console.error("Erreur lors de la requête :", error);
-      //   const errorMessage = document.querySelector(".error-message");
-      //   errorMessage.innerText = "Une erreur s'est produite. Veuillez réessayer plus tard.";
-      // });
+      })
+       .catch(function (error) {
+         console.error("Erreur lors de la requête :", error);
+         const errorMessage = document.querySelector(".error-message");
+         errorMessage.innerText = "Une erreur côté serveur s'est produite. Veuillez réessayer plus tard.";
+     });
   });
 }
 

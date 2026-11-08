@@ -51,8 +51,10 @@ export function displayWorksModal(works) {
 
     const imageElementModal = document.createElement("img");
     imageElementModal.src = works[i].imageUrl;
+    imageElementModal.alt = works[i].title;
     const trashElementModal = document.createElement("button");
     trashElementModal.classList.add("fa-solid", "fa-trash-can", "trashModal");
+    trashElementModal.ariaLabel = `Supprimer le projet : ${works[i].title}`;
 
     workElementModal.appendChild(imageElementModal);
     workElementModal.appendChild(trashElementModal);
