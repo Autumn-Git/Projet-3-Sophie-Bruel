@@ -1,7 +1,6 @@
 import { readStorageWorks, saveWorks } from "./storage.js";
 import { displayWorks } from "./gallery.js";
 
-
 const galleryModal = document.getElementById("galleryModal");
 const addModal = document.getElementById("addModal");
 const openModal = document.getElementById("openModal");
@@ -11,19 +10,17 @@ const btnGalleryModal = document.getElementById("btnGalleryModal");
 const returnGalleryModal = document.getElementById("returnGalleryModal");
 const body = document.querySelector("body");
 
-
-
 function closeModalOnClickOutside(event) {
-  if (event.target === modalWindow) {
+  if (event.target === modalWindow) { // si on clique pas sur la modal, on ferme la modal.
     modalWindow.style.display = "none";
   }
 }
 
 
-
 function openAndCloseModal(event) {
   event.preventDefault();
 
+  //essayer de mettre des classes plutot que le css dans le js
   if (this.id === "openModal") {
     modalWindow.style.display = "flex";
   } else if (this.classList.contains("closeModal")) {
@@ -36,7 +33,6 @@ function openAndCloseModal(event) {
     addModal.style.display = "none";
   }
 }
-
 
 
 export function displayWorksModal(works) {
@@ -67,41 +63,41 @@ export function displayWorksModal(works) {
 }
 
 
-
 function deleteWorks(getId) {
-    const errorMessage = document.getElementById("deleteError");
-    const token = localStorage.getItem("token");
+  const errorMessage = document.getElementById("deleteError");
+  const token = localStorage.getItem("token");
 
-    fetch(`http://localhost:5678/api/works/${getId}`, {
-        method: "DELETE",
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    }).then(function (response) {
-            if (!response.ok) {
-                throw new Error("La suppression a échoué.");
-            }
+  fetch(`http://localhost:5678/api/works/${getId}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then(function (response) {
+      if (!response.ok) {
+        throw new Error("La suppression a échoué.");
+      }
 
-            errorMessage.innerText = "";
-            errorMessage.classList.remove("error-message");
-            const allWorks = readStorageWorks();
+      errorMessage.innerText = "";
+      errorMessage.classList.remove("error-message");
+      const allWorks = readStorageWorks();
 
-            const remainingWorks = allWorks.filter(function (work) {
-                return work.id !== getId;
-            });
+      const remainingWorks = allWorks.filter(function (work) {
+        return work.id !== getId;
+      });
 
-            saveWorks(remainingWorks);
-            displayWorksModal(remainingWorks);
-            displayWorks(remainingWorks);
-        })
-        .catch(function (error) {
-            errorMessage.innerText = "La demande a échoué. Veuillez réessayer en vérifiant votre connexion.";
-            errorMessage.classList.add("error-message");
+      saveWorks(remainingWorks);
+      displayWorksModal(remainingWorks);
+      displayWorks(remainingWorks);
+    })
+    .catch(function (error) {
+      errorMessage.innerText =
+        "La demande a échoué. Veuillez réessayer en vérifiant votre connexion.";
+      errorMessage.classList.add("error-message");
 
-            console.error(error);
-        });
+      console.error(error);
+    });
 }
-
 
 
 export function initModal() {

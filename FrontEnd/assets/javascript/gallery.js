@@ -1,11 +1,8 @@
-import { readStorageWorks } from "./storage.js";
-
-
-export function displayWorks(works) {
+export function displayWorks(works) { // Je transmets data à la fonction, qui la reçoit dans son paramètre works
   const gallery = document.querySelector(".gallery");
-  gallery.replaceChildren();
+  gallery.replaceChildren(); // elle la vide pour pas afficher les projet en double, ça remplace innerHTML
 
-  for (let i = 0; i < works.length; i++){
+  for (let i = 0; i < works.length; i++) {
     const workElement = document.createElement("figure");
     workElement.dataset.categoryId = works[i].categoryId;
 
@@ -13,7 +10,7 @@ export function displayWorks(works) {
     imageElement.src = works[i].imageUrl;
     imageElement.alt = works[i].title;
     const titleElement = document.createElement("figcaption");
-    titleElement.innerText = works[i].title
+    titleElement.innerText = works[i].title;
 
     workElement.appendChild(imageElement);
     workElement.appendChild(titleElement);
@@ -22,46 +19,42 @@ export function displayWorks(works) {
   }
 }
 
-
-
 export function displayFilter(categories) {
   const filter = document.querySelector(".filter");
 
-  const buttonAll = document.createElement("button");
+  const buttonAll = document.createElement("button"); // le bouton est créé en dehors de la boucle car il existe pas de categorie "tous"
   buttonAll.innerText = "Tous";
   buttonAll.classList.add("btn-filter");
   filter.appendChild(buttonAll);
 
-  for (let i = 0; i < categories.length; i++) {
+  for (let i = 0; i < categories.length; i++) { // Un bouton par catégorie, avec son nom venu de l’API.
     const button = document.createElement("button");
     button.innerText = categories[i].name;
     button.classList.add("btn-filter");
     filter.appendChild(button);
 
     button.addEventListener("click", () => {
-      filterWorks(categories[i].id);
-    })
-}
-buttonAll.addEventListener("click", () => {
-  const figures = document.querySelectorAll("figures")
-  for (let i = 0; i < figures.length; i++){
-    figures[i].classList.remove("cache");
+      filterWorks(categories[i].id); //chaque bouton recoit un ecouteur, au click, il appelle filterWorks avec l'id de la categorie du bouton.
+    });
   }
-})
+  buttonAll.addEventListener("click", () => { // il retire la classe cache à toutes les figures
+    const figures = document.querySelectorAll("figure");
+    for (let i = 0; i < figures.length; i++) {
+      figures[i].classList.remove("cache");
+    }
+  });
 }
 
+function filterWorks(categoryId) { // il recoit la catégories demandé
+  const figures = document.querySelectorAll(".gallery figure");
 
-
-function filterWorks(categoryId){
-    const figures = document.querySelectorAll(".gallery figure")
-    
-    for(let i = 0; i < figures.length; i++){
-        const figureCategory = Number(figures[i].dataset.categoryId)
-
-        if(figureCategory === categoryId) {
-            figures[i].classList.remove("cache")
-        }else{
-            figures[i].classList.add("cache")
-        }
+  for (let i = 0; i < figures.length; i++) { // on parcourt toutes les figures
+    const figureCategory = Number(figures[i].dataset.categoryId);   // la categorie de la figure = le nb de la figures (categorie)
+    // dataset permet de stocker des informations personnalisées directement dans un élément HTML grâce aux attributs data-*. en gros pour la figure actuel, mets sur le HTML l'id de la categorie
+    if (figureCategory === categoryId) { // si l'id de categorie de la figure est le meme que l'id de la categorie
+      figures[i].classList.remove("cache"); // on affiche
+    } else {
+      figures[i].classList.add("cache");
     }
+  }
 }

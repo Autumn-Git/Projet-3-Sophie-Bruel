@@ -4,8 +4,6 @@ import { displayWorksModal } from "./modal-gallery.js";
 
 const modalWindow = document.querySelector(".modalWindow");
 
-
-
 export function changeModalImage() {
   const addImage = document.getElementById("addImage");
   const fileInput = document.getElementById("fileInput");
@@ -15,12 +13,12 @@ export function changeModalImage() {
   const previewImage = document.getElementById("previewImage");
 
   addImage.addEventListener("click", () => {
-    fileInput.click();
+    fileInput.click(); // on va chercher els fichiers sur l'ordi
   });
   fileInput.addEventListener("change", () => {
-    const image = fileInput.files[0];
+    const image = fileInput.files[0]; // on la remplace
 
-    if (image) {
+    if (image) { // si on recoit bien l'image voila ce qu'on fait :
       previewImage.src = URL.createObjectURL(image);
       iconAddImage.style.display = "none";
       addImageModal.style.padding = 0;
@@ -32,24 +30,22 @@ export function changeModalImage() {
 }
 
 
-
+//Elle remplit la liste déroulante avec les catégories venues de l’API.
 export function fillCategoryForm(categories) {
-    const categorySelect = document.getElementById("categorySelect");
+  const categorySelect = document.getElementById("categorySelect");
 
-    const optionDefault = document.createElement("option");
-    optionDefault.innerText = "";
-    optionDefault.value = "";
-    categorySelect.appendChild(optionDefault);
-    
-    for (let i = 0; i < categories.length; i++) {
-        const option = document.createElement("option");
-        option.innerText = categories[i].name;
-        option.value = categories[i].id;
-        categorySelect.appendChild(option);
-    }
+  const optionDefault = document.createElement("option");
+  optionDefault.innerText = "";
+  optionDefault.value = "";
+  categorySelect.appendChild(optionDefault);
+
+  for (let i = 0; i < categories.length; i++) {
+    const option = document.createElement("option");
+    option.innerText = categories[i].name;
+    option.value = categories[i].id;
+    categorySelect.appendChild(option);
+  }
 }
-
-
 
 export function initAddForm() {
   const formAddPhoto = document.getElementById("formAddPhoto");
@@ -60,7 +56,7 @@ export function initAddForm() {
 
     const fileInput = document.getElementById("fileInput");
     const image = fileInput.files[0];
-    const titleForm = document.getElementById("titleForm").value.trim();
+    const title = document.getElementById("title").value.trim();
     const category = document.getElementById("categorySelect").value;
 
     if (!image) {
@@ -68,7 +64,7 @@ export function initAddForm() {
       errorSelect.classList.add("error-message");
       return;
     }
-    if (!titleForm) {
+    if (!title) {
       errorSelect.innerText = "Veuillez saisir un titre";
       errorSelect.classList.add("error-message");
       return;
@@ -83,7 +79,7 @@ export function initAddForm() {
 
     const formData = new FormData();
     formData.append("image", image);
-    formData.append("title", titleForm);
+    formData.append("title", title);
     formData.append("category", category);
 
     const token = localStorage.getItem("token");
@@ -108,21 +104,19 @@ export function initAddForm() {
         works.push(newWork);
         saveWorks(works);
         displayWorksModal(works);
-        displayWorks(works); 
+        displayWorks(works);
 
         resetAddForm();
         modalWindow.style.display = "none";
       })
       .catch((error) => {
         console.error(error);
-        errorSelect.innerText = "L'ajout a échoué. Vérifiez que vous êtes bien connectée, puis réessayez.";
+        errorSelect.innerText =
+          "L'ajout a échoué. Vérifiez que vous êtes bien connectée, puis réessayez.";
         errorSelect.classList.add("error-message");
       });
   });
 }
-
-
-
 
 function resetAddForm() {
   const formAddPhoto = document.getElementById("formAddPhoto");
