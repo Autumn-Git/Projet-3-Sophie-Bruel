@@ -1,8 +1,6 @@
 //la différence entre un utilisateur connecté et non connecté
-export function changeEditionMode() {
-  const token = localStorage.getItem("token");
+export function handleEditionModeDisplay() {
 
-  if (token) {
     const edition_mode = document.querySelector(".edition_mode");
     const title_section_content = document.querySelector(".title_section_content");
     const filter = document.querySelector(".filter");
@@ -11,7 +9,7 @@ export function changeEditionMode() {
 
     edition_mode.classList.add("show");
     title_section_content.classList.add("show");
-    filter.classList.add("cache");
+    filter.classList.add("hidden");
     connexion.innerText = "logout";
     header.style.margin = "100px 0 50px";
 
@@ -20,5 +18,4 @@ export function changeEditionMode() {
       localStorage.removeItem("token");
       window.location.href = "index.html";
     });
-  }
 }

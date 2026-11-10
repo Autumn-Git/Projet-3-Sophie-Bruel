@@ -1,5 +1,7 @@
 import { readStorageWorks, saveWorks } from "./storage.js";
 import { displayWorks } from "./gallery.js";
+import { changeModalImage, fillCategoryForm, initAddForm } from "./modal-add.js";
+import { handleEditionModeDisplay } from "./edition.js";
 
 const galleryModal = document.getElementById("galleryModal");
 const addModal = document.getElementById("addModal");
@@ -10,7 +12,10 @@ const btnGalleryModal = document.getElementById("btnGalleryModal");
 const returnGalleryModal = document.getElementById("returnGalleryModal");
 const body = document.querySelector("body");
 
+
+
 function closeModalOnClickOutside(event) {
+
   if (event.target === modalWindow) { // si on clique pas sur la modal, on ferme la modal.
     modalWindow.style.display = "none";
   }
@@ -18,6 +23,7 @@ function closeModalOnClickOutside(event) {
 
 
 function openAndCloseModal(event) {
+
   event.preventDefault();
 
   //essayer de mettre des classes plutot que le css dans le js
@@ -36,17 +42,20 @@ function openAndCloseModal(event) {
 
 
 export function displayWorksModal(works) {
+
   const displayGalleryModal = document.getElementById("displayGalleryModal");
 
   displayGalleryModal.replaceChildren();
 
   for (let i = 0; i < works.length; i++) {
+
     const workElementModal = document.createElement("figure");
     workElementModal.classList.add("workElementModal");
 
     const imageElementModal = document.createElement("img");
     imageElementModal.src = works[i].imageUrl;
     imageElementModal.alt = works[i].title;
+
     const trashElementModal = document.createElement("button");
     trashElementModal.classList.add("fa-solid", "fa-trash-can", "trashModal");
     trashElementModal.ariaLabel = `Supprimer le projet : ${works[i].title}`;
@@ -56,21 +65,23 @@ export function displayWorksModal(works) {
 
     displayGalleryModal.appendChild(workElementModal);
 
-    trashElementModal.addEventListener("click", function () {
+    trashElementModal.addEventListener("click", function () { // quand on click sur la corbeille, le travaux qui porte l'id est sup (on appelle la fonction de suppression)
       deleteWorks(works[i].id);
     });
+
   }
 }
 
 
 function deleteWorks(getId) {
+
   const errorMessage = document.getElementById("deleteError");
   const token = localStorage.getItem("token");
 
   fetch(`http://localhost:5678/api/works/${getId}`, {
     method: "DELETE",
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${token}`, // le token doit etre valide
     },
   })
     .then(function (response) {
@@ -82,13 +93,13 @@ function deleteWorks(getId) {
       errorMessage.classList.remove("error-message");
       const allWorks = readStorageWorks();
 
-      const remainingWorks = allWorks.filter(function (work) {
-        return work.id !== getId;
+      const remainingWorks = allWorks.filter(function (work) { // travaux restants
+        return work.id !== getId; // on retourne la liste sans l'id qu'on veut sup
       });
 
-      saveWorks(remainingWorks);
-      displayWorksModal(remainingWorks);
-      displayWorks(remainingWorks);
+      saveWorks(remainingWorks); // on mets la nouvelle liste dans saveWorks...
+      displayWorksModal(remainingWorks); // ...et on l'affiche
+      displayWorks(remainingWorks);  //...et on l'affiche
     })
     .catch(function (error) {
       errorMessage.innerText =
@@ -100,12 +111,17 @@ function deleteWorks(getId) {
 }
 
 
-export function initModal() {
-  openModal.addEventListener("click", openAndCloseModal);
-  closeModal.forEach((button) => {
+export function initModal(categories) {
+
+  fillCategoryForm(categories)
+  changeModalImage()
+  initAddForm()
+  
+  openModal.addEventListener("click", openAndCloseModal); // quand on clique sur modfier on appelle cette fonction
+  closeModal.forEach((button) => { // chacun des deux croix
     button.addEventListener("click", openAndCloseModal);
   });
-  btnGalleryModal.addEventListener("click", openAndCloseModal);
+  btnGalleryModal.addEventListener("click", openAndCloseModal); 
   returnGalleryModal.addEventListener("click", openAndCloseModal);
 
   body.addEventListener("click", closeModalOnClickOutside);
