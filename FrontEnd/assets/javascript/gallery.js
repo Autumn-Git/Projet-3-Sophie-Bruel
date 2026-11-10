@@ -37,10 +37,10 @@ export function displayFilter(categories) {
       filterWorks(categories[i].id); //chaque bouton recoit un ecouteur, au click, il appelle filterWorks avec l'id de la categorie du bouton.
     });
   }
-  buttonAll.addEventListener("click", () => { // il retire la classe cache à toutes les figures
+  buttonAll.addEventListener("click", () => { // il retire la classe hidden à toutes les figures
     const figures = document.querySelectorAll("figure");
     for (let i = 0; i < figures.length; i++) {
-      figures[i].classList.remove("cache");
+      figures[i].classList.remove("hidden");
     }
   });
 }
@@ -52,9 +52,9 @@ function filterWorks(categoryId) { // il recoit la catégories demandé
     const figureCategory = Number(figures[i].dataset.categoryId);   // la categorie de la figure = le nb de la figures (categorie)
     // dataset permet de stocker des informations personnalisées directement dans un élément HTML grâce aux attributs data-*. en gros pour la figure actuel, mets sur le HTML l'id de la categorie
     if (figureCategory === categoryId) { // si l'id de categorie de la figure est le meme que l'id de la categorie
-      figures[i].classList.remove("cache"); // on affiche
+      figures[i].classList.remove("hidden"); // on affiche
     } else {
-      figures[i].classList.add("cache");
+      figures[i].classList.add("hidden");
     }
   }
 }

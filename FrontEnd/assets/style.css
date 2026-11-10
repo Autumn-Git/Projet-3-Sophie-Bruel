@@ -361,7 +361,7 @@ footer nav ul {
   border-radius: 20px;
 }
 
-.cache {
+.hidden {
   display: none;
 }
 .edition_mode {

@@ -22,9 +22,9 @@ export function changeModalImage() {
       previewImage.src = URL.createObjectURL(image);
       iconAddImage.style.display = "none";
       addImageModal.style.padding = 0;
-      textAddImage.classList.add("cache");
-      addImage.classList.add("cache");
-      previewImage.classList.remove("cache");
+      textAddImage.classList.add("hidden");
+      addImage.classList.add("hidden");
+      previewImage.classList.remove("hidden");
     }
   });
 }
@@ -47,16 +47,18 @@ export function fillCategoryForm(categories) {
   }
 }
 
+
+
 export function initAddForm() {
   const formAddPhoto = document.getElementById("formAddPhoto");
   const errorSelect = document.getElementById("errorSelect");
 
   formAddPhoto.addEventListener("submit", (event) => {
-    event.preventDefault();
+    event.preventDefault(); // on lit les valeurs avant d'envoyer
 
     const fileInput = document.getElementById("fileInput");
     const image = fileInput.files[0];
-    const title = document.getElementById("title").value.trim();
+    const title = document.getElementById("title").value.trim(); //retire les espaces
     const category = document.getElementById("categorySelect").value;
 
     if (!image) {
@@ -75,7 +77,7 @@ export function initAddForm() {
       return;
     }
 
-    errorSelect.innerText = "";
+    errorSelect.innerText = ""; // si pas d'erreur on marque rien
 
     const formData = new FormData();
     formData.append("image", image);
@@ -98,7 +100,7 @@ export function initAddForm() {
         return response.json();
       })
       .then((newWork) => {
-        newWork.categoryId = parseInt(newWork.categoryId);
+        newWork.categoryId = parseInt(newWork.categoryId); // mets la categorie en nb
 
         const works = readStorageWorks();
         works.push(newWork);
@@ -118,6 +120,7 @@ export function initAddForm() {
   });
 }
 
+
 function resetAddForm() {
   const formAddPhoto = document.getElementById("formAddPhoto");
   const fileInput = document.getElementById("fileInput");
@@ -131,9 +134,9 @@ function resetAddForm() {
   fileInput.value = "";
 
   previewImage.removeAttribute("src");
-  previewImage.classList.add("cache");
+  previewImage.classList.add("hidden");
   iconAddImage.style.display = "";
   addImageModal.style.padding = "";
-  textAddImage.classList.remove("cache");
-  addImage.classList.remove("cache");
+  textAddImage.classList.remove("hidden");
+  addImage.classList.remove("hidden");
 }
