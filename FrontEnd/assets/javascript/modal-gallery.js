@@ -1,6 +1,6 @@
 import { readStorageWorks, saveWorks } from "./storage.js";
 import { displayWorks } from "./gallery.js";
-import { changeModalImage, fillCategoryForm, initAddForm } from "./modal-add.js"; 
+import { changeModalImage, fillCategoryForm, refreshWorks } from "./modal-add.js"; 
 
 const galleryModal = document.getElementById("galleryModal");
 const addModal = document.getElementById("addModal");
@@ -124,7 +124,7 @@ export function initModal(categories) {
 
   fillCategoryForm(categories)
   changeModalImage()
-  initAddForm()
+  initAddForm(refreshWorks)
   
   openModal.addEventListener("click", openAndCloseModal); // quand on clique sur modfier on appelle cette fonction
   closeModal.forEach((button) => { // chacun des deux croix

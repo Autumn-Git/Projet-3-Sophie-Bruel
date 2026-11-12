@@ -1,5 +1,4 @@
 import { readStorageWorks } from "./storage.js";
-import { refreshWorks } from "./modal-gallery.js";
 
 const modalWindow = document.querySelector(".modalWindow");
 
@@ -56,7 +55,7 @@ export function fillCategoryForm(categories) {
 
 
 
-export function initAddForm() {
+export function initAddForm(handleAddSuccess) {
 
   const formAddPhoto = document.getElementById("formAddPhoto");
   const errorSelect = document.getElementById("errorSelect");
@@ -116,7 +115,7 @@ export function initAddForm() {
 
         const works = readStorageWorks();
         works.push(newWork);
-        refreshWorks(works)
+        handleAddSuccess(works)
         // saveWorks(works);
         // displayWorksModal(works);
         // displayWorks(works);
