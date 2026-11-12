@@ -3,6 +3,7 @@
 // pas d'export parce qu'il se lance tout seul en bas
 const formConnexion = document.querySelector(".formConnexion");
 formConnexion.addEventListener("submit", function (event) {
+
   event.preventDefault();
 
   const credentials = {
@@ -17,17 +18,24 @@ formConnexion.addEventListener("submit", function (event) {
     },
     body: JSON.stringify(credentials), // on transforme en texte Json
   })
+
     .then((response) => response.json())
+
     .then(function (data) {
+
       if (data.token) {
         // si c'est les bon credentials, alors on enregistre le token et on va sur la page d'acceuil
         localStorage.setItem("token", data.token);
         window.location.href = "index.html";
-      } else {
+      } 
+      
+      else {
         const error = document.querySelector(".error-message");
         error.innerText = "Erreur dans l'identifiant ou le mot de passe";
       }
+
     })
+    
     .catch(function (error) {
       // Si le serveur est injoignable, fetch échoue, et le .catch() affiche un message différent.
       console.error("Erreur lors de la requête :", error);

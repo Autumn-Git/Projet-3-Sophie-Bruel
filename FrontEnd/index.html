@@ -1,22 +1,16 @@
 <!doctype html>
 <html lang="fr">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <title>Sophie Bluel - Architecte d'intérieur</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap"
-      rel="stylesheet"
-    />
-    <meta name="description" content="" />
-    <link rel="stylesheet" href="./assets/style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
+    <meta name="description" content="">
+    <link rel="stylesheet" href="./assets/style.css">
     <script type="module" src="./assets/javascript/main.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   </head>
 
   <body>
@@ -33,7 +27,7 @@
             <li><a href="index.html">projets</a></li>
             <li><a href="#">contact</a></li>
             <li><a href="connexion.html" id="connexion">login</a></li>
-            <li><img src="./assets/icons/instagram.png" alt="Instagram" /></li>
+            <li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
           </ul>
         </nav>
       </header>
@@ -41,10 +35,7 @@
       <main>
         <div id="introduction">
           <figure>
-            <img
-              src="./assets/images/sophie-bluel.png"
-              alt="Sophie Bluel portrait"
-            />
+            <img src="./assets/images/sophie-bluel.png" alt="Sophie Bluel portrait">
           </figure>
           <article>
             <h2>Designer d'espace</h2>
@@ -78,10 +69,7 @@
           <aside class="modalWindow">
             <div class="modal-wrapper">
               <div id="galleryModal">
-                <button
-                  class="closeModal buttonStyleAddModal"
-                  aria-label="Retirer la fenêtre"
-                >
+                <button class="closeModal buttonStyleAddModal" aria-label="Retirer la fenêtre">
                   <i class="fa-solid fa-xmark"></i>
                 </button>
                 <div class="gapGalleryModal">
@@ -94,17 +82,10 @@
 
               <div id="addModal">
                 <div class="arrowCroix">
-                  <button
-                    id="returnGalleryModal"
-                    aria-label="Fenêtre précédente"
-                    class="buttonStyleAddModal"
-                  >
+                  <button id="returnGalleryModal" aria-label="Fenêtre précédente" class="buttonStyleAddModal">
                     <i class="fa-solid fa-arrow-left-long"></i>
                   </button>
-                  <button
-                    class="closeModal buttonStyleAddModal"
-                    aria-label="Retirer la fenêtre"
-                  >
+                  <button class="closeModal buttonStyleAddModal" aria-label="Retirer la fenêtre">
                     <i class="fa-solid fa-xmark"></i>
                   </button>
                 </div>
@@ -112,31 +93,16 @@
                 <h2 class="title-modal">Ajout photo</h2>
                 <div class="addImageModal">
                   <i class="fa-regular fa-image iconAddImage"></i>
-                  <input
-                    type="file"
-                    accept=".jpg, .jpeg, .png"
-                    id="fileInput"
-                    hidden
-                  />
+                  <input type="file" accept=".jpg, .jpeg, .png" id="fileInput" hidden/>
                   <button id="addImage">+ Ajouter photo</button>
-                  <img
-                    src="assets/fond-bleu-preview.png"
-                    id="previewImage"
-                    alt="Aperçu de l'image sélectionnée"
-                    class="hidden"
-                  />
+                  <img src="assets/fond-bleu-preview.png" id="previewImage" alt="Aperçu de l'image sélectionnée"class="hidden">
                   <p class="textAddImage">jpg, png : 4mo max</p>
                 </div>
 
                 <div id="addModalForm">
                   <form id="formAddPhoto">
                     <label for="title">Titre</label>
-                    <input
-                      type="text"
-                      id="title"
-                      name="title"
-                      placeholder="Titre de l'image"
-                    />
+                    <input type="text" id="title" name="title" placeholder="Titre de l'image">
                     <label for="categorySelect">Catégorie</label>
                     <select id="categorySelect" name="categorySelect"></select>
                     <div class="line"></div>
@@ -151,6 +117,7 @@
           <div class="filter"></div>
           <p id="errorGallery"></p>
           <div class="gallery"></div>
+
         </section>
 
         <section id="contact">
@@ -158,17 +125,12 @@
           <p>Vous avez un projet ? Discutons-en !</p>
           <form action="#" method="post">
             <label for="name">Nom</label>
-            <input type="text" name="name" id="name" />
+            <input type="text" name="name" id="name">
             <label for="email">Email</label>
-            <input type="email" name="email" id="email" />
+            <input type="email" name="email" id="email">
             <label for="message">Message</label>
-            <textarea
-              name="message"
-              id="message"
-              cols="30"
-              rows="10"
-            ></textarea>
-            <input type="submit" value="Envoyer" />
+            <textarea name="message" id="message" cols="30" rows="10"></textarea>
+            <input type="submit" value="Envoyer">
           </form>
         </section>
       </main>

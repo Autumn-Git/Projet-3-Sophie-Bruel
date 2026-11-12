@@ -5,6 +5,7 @@ import { displayWorksModal } from "./modal-gallery.js";
 const modalWindow = document.querySelector(".modalWindow");
 
 export function changeModalImage() {
+
   const addImage = document.getElementById("addImage");
   const fileInput = document.getElementById("fileInput");
   const iconAddImage = document.querySelector(".iconAddImage");
@@ -15,16 +16,19 @@ export function changeModalImage() {
   addImage.addEventListener("click", () => {
     fileInput.click(); // on va chercher els fichiers sur l'ordi
   });
+
   fileInput.addEventListener("change", () => {
     const image = fileInput.files[0]; // on la remplace
 
     if (image) { // si on recoit bien l'image voila ce qu'on fait :
+
       previewImage.src = URL.createObjectURL(image);
       iconAddImage.style.display = "none";
       addImageModal.style.padding = 0;
       textAddImage.classList.add("hidden");
       addImage.classList.add("hidden");
       previewImage.classList.remove("hidden");
+
     }
   });
 }
@@ -32,24 +36,29 @@ export function changeModalImage() {
 
 //Elle remplit la liste déroulante avec les catégories venues de l’API.
 export function fillCategoryForm(categories) {
+
   const categorySelect = document.getElementById("categorySelect");
 
   const optionDefault = document.createElement("option");
   optionDefault.innerText = "";
   optionDefault.value = "";
+
   categorySelect.appendChild(optionDefault);
 
   for (let i = 0; i < categories.length; i++) {
+
     const option = document.createElement("option");
     option.innerText = categories[i].name;
     option.value = categories[i].id;
     categorySelect.appendChild(option);
+
   }
 }
 
 
 
 export function initAddForm() {
+
   const formAddPhoto = document.getElementById("formAddPhoto");
   const errorSelect = document.getElementById("errorSelect");
 
@@ -66,11 +75,13 @@ export function initAddForm() {
       errorSelect.classList.add("error-message");
       return;
     }
+
     if (!title) {
       errorSelect.innerText = "Veuillez saisir un titre";
       errorSelect.classList.add("error-message");
       return;
     }
+
     if (!category) {
       errorSelect.innerText = "Veuillez sélectionner une catégorie";
       errorSelect.classList.add("error-message");
@@ -93,12 +104,14 @@ export function initAddForm() {
       },
       body: formData,
     })
+
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Erreur ${response.status}`);
         }
         return response.json();
       })
+
       .then((newWork) => {
         newWork.categoryId = parseInt(newWork.categoryId); // mets la categorie en nb
 
@@ -111,6 +124,7 @@ export function initAddForm() {
         resetAddForm();
         modalWindow.style.display = "none";
       })
+      
       .catch((error) => {
         console.error(error);
         errorSelect.innerText =

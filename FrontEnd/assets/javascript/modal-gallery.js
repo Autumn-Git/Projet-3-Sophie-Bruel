@@ -1,7 +1,6 @@
 import { readStorageWorks, saveWorks } from "./storage.js";
 import { displayWorks } from "./gallery.js";
-import { changeModalImage, fillCategoryForm, initAddForm } from "./modal-add.js";
-import { handleEditionModeDisplay } from "./edition.js";
+import { changeModalImage, fillCategoryForm, initAddForm } from "./modal-add.js"; 
 
 const galleryModal = document.getElementById("galleryModal");
 const addModal = document.getElementById("addModal");
@@ -29,12 +28,18 @@ function openAndCloseModal(event) {
   //essayer de mettre des classes plutot que le css dans le js
   if (this.id === "openModal") {
     modalWindow.style.display = "flex";
-  } else if (this.classList.contains("closeModal")) {
+  } 
+  
+  else if (this.classList.contains("closeModal")) {
     modalWindow.style.display = "none";
-  } else if (this.id === "btnGalleryModal") {
+  } 
+  
+  else if (this.id === "btnGalleryModal") {
     galleryModal.style.display = "none";
     addModal.style.display = "block";
-  } else if (this.id === "returnGalleryModal") {
+  } 
+  
+  else if (this.id === "returnGalleryModal") {
     galleryModal.style.display = "flex";
     addModal.style.display = "none";
   }
@@ -84,6 +89,7 @@ function deleteWorks(getId) {
       Authorization: `Bearer ${token}`, // le token doit etre valide
     },
   })
+
     .then(function (response) {
       if (!response.ok) {
         throw new Error("La suppression a échoué.");
@@ -101,6 +107,7 @@ function deleteWorks(getId) {
       displayWorksModal(remainingWorks); // ...et on l'affiche
       displayWorks(remainingWorks);  //...et on l'affiche
     })
+
     .catch(function (error) {
       errorMessage.innerText =
         "La demande a échoué. Veuillez réessayer en vérifiant votre connexion.";
@@ -121,6 +128,7 @@ export function initModal(categories) {
   closeModal.forEach((button) => { // chacun des deux croix
     button.addEventListener("click", openAndCloseModal);
   });
+  
   btnGalleryModal.addEventListener("click", openAndCloseModal); 
   returnGalleryModal.addEventListener("click", openAndCloseModal);
 

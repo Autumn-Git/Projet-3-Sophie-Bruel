@@ -14,8 +14,10 @@ export function handleEditionModeDisplay() {
     header.style.margin = "100px 0 50px";
 
     connexion.addEventListener("click", function (event) {
+
       event.preventDefault(); // permet d'attendre avant d'aller sur la page de connexion.html, voir le HTML.
       localStorage.removeItem("token");
       window.location.href = "index.html";
+      
     });
 }

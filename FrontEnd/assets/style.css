@@ -91,6 +91,7 @@ video {
   font: inherit;
   vertical-align: baseline;
 }
+
 /* HTML5 display-role reset for older browsers */
 article,
 aside,
@@ -105,11 +106,13 @@ nav,
 section {
   display: block;
 }
+
 :root {
   --primary-color: #1d6154;
   --secondary-color: #b1663c;
   --background-color: #fffef8;
 }
+
 body {
   line-height: 1;
   background-color: var(--background-color);
@@ -117,17 +120,21 @@ body {
   display: flex;
   flex-direction: column;
 }
+
 main {
   flex: 1;
 }
+
 ol,
 ul {
   list-style: none;
 }
+
 blockquote,
 q {
   quotes: none;
 }
+
 blockquote:before,
 blockquote:after,
 q:before,
@@ -135,24 +142,29 @@ q:after {
   content: "";
   content: none;
 }
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
 /** end reset css**/
 body {
   font-family: "Work Sans";
   font-size: 14px;
 }
+
 .main-container {
   max-width: 1140px;
   margin: auto;
 }
+
 header {
   display: flex;
   justify-content: space-between;
   margin: 50px 0;
 }
+
 .header-connexion {
   width: 100%;
   max-width: 1140px;
@@ -160,6 +172,7 @@ header {
   padding: 0 20px;
   box-sizing: border-box;
 }
+
 section {
   margin: 50px 0;
 }
@@ -185,12 +198,14 @@ h2 {
   font-size: 30px;
   color: var(--primary-color);
 }
+
 nav ul {
   display: flex;
   align-items: center;
   list-style-type: none;
   gap: 30px;
 }
+
 nav a {
   padding: 0 10px;
   font-size: 1.2em;
@@ -213,9 +228,11 @@ nav a:focus {
   align-items: center;
   margin: 100px 0;
 }
+
 #introduction figure {
   flex: 1;
 }
+
 #introduction img {
   display: block;
   margin: auto;
@@ -225,6 +242,7 @@ nav a:focus {
 #introduction article {
   flex: 1;
 }
+
 #introduction h2 {
   margin-bottom: 1em;
 }
@@ -244,29 +262,36 @@ nav a:focus {
 .gallery img {
   width: 100%;
 }
+
 #contact,
 #connexion {
   width: 50%;
   margin: auto;
 }
+
 #connexion {
   padding: 50px 0px;
 }
+
 #lost_password {
   color: black;
   text-decoration: underline;
   text-align: center;
 }
+
 #lost_password:hover {
   color: var(--primary-color);
 }
+
 #contact,
 #connexion > * {
   text-align: center;
 }
+
 #contact h2 {
   margin-bottom: 20px;
 }
+
 #connexion h1 {
   font-family: "Syne";
   font-weight: 700;
@@ -274,6 +299,7 @@ nav a:focus {
   color: var(--primary-color);
   margin-bottom: 20px;
 }
+
 #contact form,
 #connexion form {
   text-align: left;
@@ -296,10 +322,12 @@ nav a:focus {
   background-color: var(--secondary-color);
   transition: 0.3s;
 }
+
 #contact label,
 #connexion label {
   margin: 2em 0 1em 0;
 }
+
 #contact textarea,
 #connexion textarea {
   border: none;
@@ -334,6 +362,7 @@ footer nav ul {
   gap: 8px;
   margin-bottom: 50px;
 }
+
 .btn-filter {
   color: var(--primary-color);
   background-color: white;
@@ -344,6 +373,7 @@ footer nav ul {
   font-family: "Syne";
   font-size: 16px;
 }
+
 .btn-filter:hover,
 .btn-filter:focus {
   background-color: var(--primary-color);
@@ -351,6 +381,7 @@ footer nav ul {
   transition: 0.5s;
   cursor: pointer;
 }
+
 .error-message {
   font-family: "Syne";
   color: red;
@@ -364,6 +395,7 @@ footer nav ul {
 .hidden {
   display: none;
 }
+
 .edition_mode {
   margin: 0;
   background-color: black;
@@ -374,8 +406,8 @@ footer nav ul {
   position: fixed;
   padding: 20px;
   width: 100%;
-  max-width: 1440px;
 }
+
 /* j'ai l'impression que mes a sont tous les mêmes donc esayer de toutes les mettres en color black et hover secondary color*/
 
 .title_section {
@@ -394,16 +426,19 @@ footer nav ul {
   display: none;
   gap: 8px;
 }
+
 /*Fenetre modal */
 #openModal {
   text-decoration: none;
   color: black;
   text-align: center;
 }
+
 #openModal:hover {
   color: var(--secondary-color);
   cursor: pointer;
 }
+
 .modalWindow {
   position: fixed;
   display: none;
@@ -417,15 +452,18 @@ footer nav ul {
   background-color: rgba(0, 0, 0, 0.3);
   transition: 0.3s;
 }
+
 #galleryModal {
   display: flex;
   flex-direction: column;
 }
+
 .gapGalleryModal {
   display: flex;
   flex-direction: column;
   gap: 40px;
 }
+
 .modal-wrapper {
   overflow: auto;
   width: 630px;
@@ -434,6 +472,7 @@ footer nav ul {
   background-color: #fffef8;
   border-radius: 10px;
 }
+
 .closeModal {
   display: block;
   margin-left: auto;
@@ -442,6 +481,7 @@ footer nav ul {
   background: transparent;
   cursor: pointer;
 }
+
 .buttonStyleAddModal {
   padding: 20px 30px;
   border: none;
@@ -450,10 +490,12 @@ footer nav ul {
   cursor: pointer;
   background-color: transparent;
 }
+
 .arrowCroix {
   display: flex;
   justify-content: space-between;
 }
+
 .title-modal {
   font-size: 26px;
   font-weight: 400;
@@ -462,6 +504,7 @@ footer nav ul {
   margin-bottom: 30px;
   font-family: "Work Sans";
 }
+
 #btnGalleryModal {
   color: white;
   font-size: 14px;
@@ -474,15 +517,18 @@ footer nav ul {
   margin: auto;
   font-family: "Syne";
 }
+
 #btnGalleryModal:hover {
   opacity: 0.8;
   cursor: pointer;
   transition: 0.3s;
 }
+
 /*modal ajouter photo*/
 #addModal {
   display: none; /*au changement c'est display: block; pas flex sinon c'est n'importe quoi*/
 }
+
 .addImageModal {
   padding: 30px;
   border-radius: 6px;
@@ -493,11 +539,13 @@ footer nav ul {
   gap: 15px;
   width: 67%;
 }
+
 .iconAddImage {
   font-size: 85px;
   color: #cbd6dc;
   margin: auto;
 }
+
 #addImage {
   border-radius: 50px;
   background-color: #cbd6dc;
@@ -509,13 +557,16 @@ footer nav ul {
   color: #306685;
   font-weight: 500;
 }
+
 #addImage:hover {
   opacity: 0.8;
   cursor: pointer;
 }
+
 .addImageModal p {
   text-align: center;
 }
+
 #previewImage {
   margin: auto;
   width: 129px;
@@ -523,6 +574,7 @@ footer nav ul {
   object-fit: cover;
   transition: 0.3s;
 }
+
 /*formualire*/
 #addModalForm form {
   display: flex;
@@ -544,10 +596,12 @@ footer nav ul {
   font-family: "Work Sans";
   padding: 0px 15px;
 }
+
 #addModalForm .line {
   margin: 30px 0;
   border-bottom: 1px solid #b3b3b3;
 }
+
 #btnForm {
   font-weight: 400;
   font-family: "Syne";
@@ -560,6 +614,7 @@ footer nav ul {
   text-align: center;
   border-radius: 60px;
 }
+
 #btnForm:hover {
   opacity: 0.8;
   cursor: pointer;
@@ -569,6 +624,7 @@ footer nav ul {
   margin-right: auto;
   margin-left: 0;
 }
+
 /*image portfolio modale*/
 #displayGalleryModal {
   width: 67%;
@@ -585,9 +641,11 @@ footer nav ul {
 #displayGalleryModal img {
   width: 100%;
 }
+
 .workElementModal {
   position: relative;
 }
+
 .trashModal {
   font-size: 13px;
   color: white;
@@ -599,6 +657,7 @@ footer nav ul {
   top: 5px;
   right: 5px;
 }
+
 .trashModal:hover {
   color: black;
   background-color: white;
