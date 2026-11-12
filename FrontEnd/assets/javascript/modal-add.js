@@ -1,6 +1,5 @@
-import { readStorageWorks, saveWorks } from "./storage.js";
-import { displayWorks } from "./gallery.js";
-import { displayWorksModal } from "./modal-gallery.js";
+import { readStorageWorks } from "./storage.js";
+import { refreshWorks } from "./modal-gallery.js";
 
 const modalWindow = document.querySelector(".modalWindow");
 
@@ -117,14 +116,15 @@ export function initAddForm() {
 
         const works = readStorageWorks();
         works.push(newWork);
-        saveWorks(works);
-        displayWorksModal(works);
-        displayWorks(works);
+        refreshWorks(works)
+        // saveWorks(works);
+        // displayWorksModal(works);
+        // displayWorks(works);
 
         resetAddForm();
         modalWindow.style.display = "none";
       })
-      
+
       .catch((error) => {
         console.error(error);
         errorSelect.innerText =
@@ -154,3 +154,6 @@ function resetAddForm() {
   textAddImage.classList.remove("hidden");
   addImage.classList.remove("hidden");
 }
+
+
+

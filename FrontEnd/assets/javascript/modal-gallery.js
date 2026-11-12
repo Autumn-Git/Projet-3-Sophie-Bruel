@@ -103,9 +103,11 @@ function deleteWorks(getId) {
         return work.id !== getId; // on retourne la liste sans l'id qu'on veut sup
       });
 
-      saveWorks(remainingWorks); // on mets la nouvelle liste dans saveWorks...
-      displayWorksModal(remainingWorks); // ...et on l'affiche
-      displayWorks(remainingWorks);  //...et on l'affiche
+      refreshWorks(remainingWorks)
+
+      // saveWorks(remainingWorks); // on mets la nouvelle liste dans saveWorks...
+      // displayWorksModal(remainingWorks); // ...et on l'affiche
+      // displayWorks(remainingWorks);  //...et on l'affiche
     })
 
     .catch(function (error) {
@@ -128,9 +130,16 @@ export function initModal(categories) {
   closeModal.forEach((button) => { // chacun des deux croix
     button.addEventListener("click", openAndCloseModal);
   });
-  
+   
   btnGalleryModal.addEventListener("click", openAndCloseModal); 
   returnGalleryModal.addEventListener("click", openAndCloseModal);
 
   body.addEventListener("click", closeModalOnClickOutside);
+}
+
+
+export function refreshWorks(works) {
+  saveWorks(works)
+  displayWorks(works)
+  displayWorksModal(works)
 }
