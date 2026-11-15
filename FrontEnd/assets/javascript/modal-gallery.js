@@ -1,6 +1,7 @@
 import { readStorageWorks, saveWorks } from "./storage.js";
 import { displayWorks } from "./gallery.js";
-import { changeModalImage, fillCategoryForm, refreshWorks } from "./modal-add.js"; 
+import { changeModalImage } from "./modal-add.js"; 
+import { initAddForm } from "./modal-add.js";
 
 const galleryModal = document.getElementById("galleryModal");
 const addModal = document.getElementById("addModal");
@@ -120,9 +121,9 @@ function deleteWorks(getId) {
 }
 
 
-export function initModal(categories) {
+export function initModal() {
 
-  fillCategoryForm(categories)
+  // fillCategoryForm(categories)
   changeModalImage()
   initAddForm(refreshWorks)
   

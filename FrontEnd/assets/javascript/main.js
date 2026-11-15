@@ -1,3 +1,12 @@
-import { load } from "./load.js"
+import { initWorks, initCategories, initEditionMode } from "./load.js"
 
-load()
+const token = localStorage.getItem("token");
+const isAuthenticated = Boolean(token);
+
+initWorks(isAuthenticated)
+initCategories(isAuthenticated)
+initEditionMode(isAuthenticated)
+
+
+
+
