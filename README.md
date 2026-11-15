@@ -26,6 +26,7 @@ Le front-end a été développé en JavaScript, à partir du HTML et du CSS four
 
 - Un message s'affiche dans la page si le serveur ne répond pas, si la session a expiré ou si un champ du formulaire est vide.
 - Si le serveur est injoignable, le site affiche la dernière liste de projets enregistrée, avec un avertissement.
+- Si les catégories ne se chargent pas, la galerie reste affichée, sans les filtres.
 
 ## Technologies
 
@@ -56,11 +57,12 @@ Ouvrez le fichier `FrontEnd/index.html` avec l'extension **Live Server** de Visu
 
 ## Organisation du code
 
-Le JavaScript est découpé en modules : chaque fichier a un rôle précis.
+Le JavaScript est découpé en modules : chaque fichier a un rôle précis. Les projets et les catégories sont chargés séparément, pour qu'une erreur sur l'un n'empêche pas l'affichage de l'autre.
 
 | Fichier | Rôle |
 | --- | --- |
-| `main.js` | Point d'entrée de la page d'accueil : charge les données et lance les autres modules |
+| `main.js` | Point d'entrée de la page d'accueil : vérifie si l'utilisatrice est connectée, puis lance la galerie, les filtres et le mode édition |
+| `load.js` | Charge les projets et les catégories depuis l'API, les affiche, gère leurs erreurs et prépare le mode édition si l'utilisatrice est connectée |
 | `api.js` | Récupère les projets et les catégories depuis l'API |
 | `storage.js` | Enregistre et relit la liste des projets dans le `sessionStorage` |
 | `gallery.js` | Affiche la galerie et gère les filtres |
