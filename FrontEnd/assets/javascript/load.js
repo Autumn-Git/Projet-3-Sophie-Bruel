@@ -9,8 +9,6 @@ import { fillCategoryForm } from "./modal-add.js";
 const errorGallery = document.getElementById("errorGallery");
 
 
-
-
 export function initWorks(isAuthenticated) {
   getWorks()
     .then((works) => {

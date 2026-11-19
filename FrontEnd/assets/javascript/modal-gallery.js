@@ -1,6 +1,6 @@
 import { readStorageWorks, saveWorks } from "./storage.js";
 import { displayWorks } from "./gallery.js";
-import { changeModalImage } from "./modal-add.js"; 
+import { changeModalImage } from "./modal-add.js";
 import { initAddForm } from "./modal-add.js";
 
 const galleryModal = document.getElementById("galleryModal");
@@ -12,75 +12,64 @@ const btnGalleryModal = document.getElementById("btnGalleryModal");
 const returnGalleryModal = document.getElementById("returnGalleryModal");
 const body = document.querySelector("body");
 
-
-
 function closeModalOnClickOutside(event) {
-
-  if (event.target === modalWindow) { // si on clique pas sur la modal, on ferme la modal.
+  if (event.target === modalWindow) {
+    // si on clique pas sur la modal, on ferme la modal.
     modalWindow.style.display = "none";
   }
 }
 
-
 function openAndCloseModal(event) {
-
   event.preventDefault();
 
   //essayer de mettre des classes plutot que le css dans le js
   if (this.id === "openModal") {
     modalWindow.style.display = "flex";
-  } 
-  
-  else if (this.classList.contains("closeModal")) {
+  } else if (this.classList.contains("closeModal")) {
     modalWindow.style.display = "none";
-  } 
-  
-  else if (this.id === "btnGalleryModal") {
+  } else if (this.id === "btnGalleryModal") {
     galleryModal.style.display = "none";
     addModal.style.display = "block";
-  } 
-  
-  else if (this.id === "returnGalleryModal") {
+  } else if (this.id === "returnGalleryModal") {
     galleryModal.style.display = "flex";
     addModal.style.display = "none";
   }
 }
 
+function createWorkModalFigure(work) {
+  const workFigureModal = document.createElement("figure");
+  workFigureModal.classList.add("workElementModal");
+  workFigureModal.dataset.workId = work.id;
 
-export function displayWorksModal(works) {
+  const imageElementModal = document.createElement("img");
+  imageElementModal.src = work.imageUrl;
+  imageElementModal.alt = work.title;
 
-  const displayGalleryModal = document.getElementById("displayGalleryModal");
+  const trashElementModal = document.createElement("button");
+  trashElementModal.classList.add("fa-solid", "fa-trash-can", "trashModal");
+  trashElementModal.ariaLabel = `Supprimer le projet : ${work.title}`;
 
-  displayGalleryModal.replaceChildren();
+  workFigureModal.appendChild(imageElementModal);
+  workFigureModal.appendChild(trashElementModal);
 
-  for (let i = 0; i < works.length; i++) {
-
-    const workElementModal = document.createElement("figure");
-    workElementModal.classList.add("workElementModal");
-
-    const imageElementModal = document.createElement("img");
-    imageElementModal.src = works[i].imageUrl;
-    imageElementModal.alt = works[i].title;
-
-    const trashElementModal = document.createElement("button");
-    trashElementModal.classList.add("fa-solid", "fa-trash-can", "trashModal");
-    trashElementModal.ariaLabel = `Supprimer le projet : ${works[i].title}`;
-
-    workElementModal.appendChild(imageElementModal);
-    workElementModal.appendChild(trashElementModal);
-
-    displayGalleryModal.appendChild(workElementModal);
-
-    trashElementModal.addEventListener("click", function () { // quand on click sur la corbeille, le travaux qui porte l'id est sup (on appelle la fonction de suppression)
-      deleteWorks(works[i].id);
-    });
-
-  }
+  trashElementModal.addEventListener("click", function () {
+    // quand on click sur la corbeille, le travaux qui porte l'id est sup (on appelle la fonction de suppression)
+    deleteWorks(work.id);
+  });
+  return workFigureModal;
 }
 
 
-function deleteWorks(getId) {
+export function displayWorksModal(works) {
+  const displayGalleryModal = document.getElementById("displayGalleryModal");
+  displayGalleryModal.replaceChildren();
 
+  for (let i = 0; i < works.length; i++) {
+    displayGalleryModal.appendChild(createWorkModalFigure(works[i]));
+  }
+}
+
+function deleteWorks(getId) {
   const errorMessage = document.getElementById("deleteError");
   const token = localStorage.getItem("token");
 
@@ -90,7 +79,6 @@ function deleteWorks(getId) {
       Authorization: `Bearer ${token}`, // le token doit etre valide
     },
   })
-
     .then(function (response) {
       if (!response.ok) {
         throw new Error("La suppression a échoué.");
@@ -100,11 +88,12 @@ function deleteWorks(getId) {
       errorMessage.classList.remove("error-message");
       const allWorks = readStorageWorks();
 
-      const remainingWorks = allWorks.filter(function (work) { // travaux restants
+      const remainingWorks = allWorks.filter(function (work) {
+        // travaux restants
         return work.id !== getId; // on retourne la liste sans l'id qu'on veut sup
       });
 
-      refreshWorks(remainingWorks)
+      refreshWorks(remainingWorks);
 
       // saveWorks(remainingWorks); // on mets la nouvelle liste dans saveWorks...
       // displayWorksModal(remainingWorks); // ...et on l'affiche
@@ -120,27 +109,25 @@ function deleteWorks(getId) {
     });
 }
 
-
 export function initModal() {
-
   // fillCategoryForm(categories)
-  changeModalImage()
-  initAddForm(refreshWorks)
-  
+  changeModalImage();
+  initAddForm(refreshWorks);
+
   openModal.addEventListener("click", openAndCloseModal); // quand on clique sur modfier on appelle cette fonction
-  closeModal.forEach((button) => { // chacun des deux croix
+  closeModal.forEach((button) => {
+    // chacun des deux croix
     button.addEventListener("click", openAndCloseModal);
   });
-   
-  btnGalleryModal.addEventListener("click", openAndCloseModal); 
+
+  btnGalleryModal.addEventListener("click", openAndCloseModal);
   returnGalleryModal.addEventListener("click", openAndCloseModal);
 
   body.addEventListener("click", closeModalOnClickOutside);
 }
 
-
 export function refreshWorks(works) {
-  saveWorks(works)
-  displayWorks(works)
-  displayWorksModal(works)
+  saveWorks(works);
+  displayWorks(works);
+  displayWorksModal(works);
 }

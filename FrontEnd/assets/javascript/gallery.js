@@ -1,23 +1,26 @@
+export function createWorkFigure(work){
+    const workFigure = document.createElement("figure");
+    workFigure.dataset.workId = work.id;
+    workFigure.dataset.categoryId = work.categoryId.id;
+
+    const imageElement = document.createElement("img");
+    imageElement.src = work.imageUrl;
+    imageElement.alt = work.title;
+    const titleElement = document.createElement("figcaption");
+    titleElement.innerText = work.title;
+
+    workFigure.appendChild(imageElement);
+    workFigure.appendChild(titleElement);
+    return workFigure;
+}
+
 export function displayWorks(works) { // Je transmets data à la fonction, qui la reçoit dans son paramètre works
 
   const gallery = document.querySelector(".gallery");
   gallery.replaceChildren(); // elle la vide pour pas afficher les projet en double, ça remplace innerHTML
 
   for (let i = 0; i < works.length; i++) {
-
-    const workElement = document.createElement("figure");
-    workElement.dataset.categoryId = works[i].categoryId;
-
-    const imageElement = document.createElement("img");
-    imageElement.src = works[i].imageUrl;
-    imageElement.alt = works[i].title;
-    const titleElement = document.createElement("figcaption");
-    titleElement.innerText = works[i].title;
-
-    workElement.appendChild(imageElement);
-    workElement.appendChild(titleElement);
-
-    gallery.appendChild(workElement);
+    gallery.appendChild(createWorkFigure(works[i]));
   }
 }
 
@@ -50,25 +53,21 @@ export function displayFilter(categories) {
     for (let i = 0; i < figures.length; i++) {
       figures[i].classList.remove("hidden");
     }
-
   });
 }
 
 function filterWorks(categoryId) { // il recoit la catégories demandé
-
   const figures = document.querySelectorAll(".gallery figure");
 
   for (let i = 0; i < figures.length; i++) { // on parcourt toutes les figures
-
     const figureCategory = Number(figures[i].dataset.categoryId);   // la categorie de la figure = le nb de la figures (categorie)
+
     // dataset permet de stocker des informations personnalisées directement dans un élément HTML grâce aux attributs data-*. en gros pour la figure actuel, mets sur le HTML l'id de la categorie
     if (figureCategory === categoryId) { // si l'id de categorie de la figure est le meme que l'id de la categorie
       figures[i].classList.remove("hidden"); // on affiche
     } 
-    
     else {
       figures[i].classList.add("hidden");
     }
-    
   }
 }
