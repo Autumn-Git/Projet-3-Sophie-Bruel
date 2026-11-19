@@ -1,4 +1,5 @@
-import { readStorageWorks } from "./storage.js";
+
+import { addWorkGalleryAndModal } from "./modal-gallery.js";
 
 const modalWindow = document.querySelector(".modalWindow");
 
@@ -113,12 +114,7 @@ export function initAddForm(handleAddSuccess) {
       .then((newWork) => {
         newWork.categoryId = parseInt(newWork.categoryId); // mets la categorie en nb
 
-        const works = readStorageWorks();
-        works.push(newWork);
-        handleAddSuccess(works)
-        // saveWorks(works);
-        // displayWorksModal(works);
-        // displayWorks(works);
+        handleAddSuccess(newWork)
 
         resetAddForm();
         modalWindow.style.display = "none";

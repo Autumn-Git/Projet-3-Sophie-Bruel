@@ -1,5 +1,5 @@
 import { readStorageWorks, saveWorks } from "./storage.js";
-import { displayWorks } from "./gallery.js";
+import { displayWorks, createWorkFigure } from "./gallery.js";
 import { changeModalImage } from "./modal-add.js";
 import { initAddForm } from "./modal-add.js";
 
@@ -59,7 +59,6 @@ function createWorkModalFigure(work) {
   return workFigureModal;
 }
 
-
 export function displayWorksModal(works) {
   const displayGalleryModal = document.getElementById("displayGalleryModal");
   displayGalleryModal.replaceChildren();
@@ -86,11 +85,12 @@ function deleteWorks(workId) {
 
       errorMessage.innerText = "";
       errorMessage.classList.remove("error-message");
-      const workFigures = document.querySelectorAll(`[data-work-id="${workId}"]`);
+      const workFigures = document.querySelectorAll(
+        `[data-work-id="${workId}"]`,
+      );
       workFigures.forEach((workFigure) => {
-          workFigure.remove();
+        workFigure.remove();
       });
-      
     })
 
     .catch(function (error) {
@@ -103,9 +103,8 @@ function deleteWorks(workId) {
 }
 
 export function initModal() {
-  // fillCategoryForm(categories)
   changeModalImage();
-  initAddForm(refreshWorks);
+  initAddForm(addWorkGalleryAndModal);
 
   openModal.addEventListener("click", openAndCloseModal); // quand on clique sur modfier on appelle cette fonction
   closeModal.forEach((button) => {
@@ -119,8 +118,9 @@ export function initModal() {
   body.addEventListener("click", closeModalOnClickOutside);
 }
 
-export function refreshWorks(works) {
-  saveWorks(works);
-  displayWorks(works);
-  displayWorksModal(works);
+export function addWorkGalleryAndModal(work) {
+  const gallery = document.querySelector(".gallery");
+  const displayGalleryModal = document.getElementById("displayGalleryModal");
+  gallery.appendChild(createWorkFigure(work));
+  displayGalleryModal.appendChild(createWorkModalFigure(work));
 }
