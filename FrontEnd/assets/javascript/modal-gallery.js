@@ -69,11 +69,11 @@ export function displayWorksModal(works) {
   }
 }
 
-function deleteWorks(getId) {
+function deleteWorks(workId) {
   const errorMessage = document.getElementById("deleteError");
   const token = localStorage.getItem("token");
 
-  fetch(`http://localhost:5678/api/works/${getId}`, {
+  fetch(`http://localhost:5678/api/works/${workId}`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${token}`, // le token doit etre valide
@@ -86,18 +86,11 @@ function deleteWorks(getId) {
 
       errorMessage.innerText = "";
       errorMessage.classList.remove("error-message");
-      const allWorks = readStorageWorks();
-
-      const remainingWorks = allWorks.filter(function (work) {
-        // travaux restants
-        return work.id !== getId; // on retourne la liste sans l'id qu'on veut sup
+      const workFigures = document.querySelectorAll(`[data-work-id="${workId}"]`);
+      workFigures.forEach((workFigure) => {
+          workFigure.remove();
       });
-
-      refreshWorks(remainingWorks);
-
-      // saveWorks(remainingWorks); // on mets la nouvelle liste dans saveWorks...
-      // displayWorksModal(remainingWorks); // ...et on l'affiche
-      // displayWorks(remainingWorks);  //...et on l'affiche
+      
     })
 
     .catch(function (error) {
