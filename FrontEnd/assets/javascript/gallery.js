@@ -1,7 +1,7 @@
 export function createWorkFigure(work){
     const workFigure = document.createElement("figure");
     workFigure.dataset.workId = work.id;
-    workFigure.dataset.categoryId = work.categoryId.id;
+    workFigure.dataset.categoryId = work.categoryId;
 
     const imageElement = document.createElement("img");
     imageElement.src = work.imageUrl;
@@ -17,7 +17,7 @@ export function createWorkFigure(work){
 export function displayWorks(works) { // Je transmets data à la fonction, qui la reçoit dans son paramètre works
 
   const gallery = document.querySelector(".gallery");
-  gallery.replaceChildren(); // elle la vide pour pas afficher les projet en double, ça remplace innerHTML
+
 
   for (let i = 0; i < works.length; i++) {
     gallery.appendChild(createWorkFigure(works[i]));

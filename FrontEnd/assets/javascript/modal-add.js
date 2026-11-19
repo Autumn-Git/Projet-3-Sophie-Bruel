@@ -1,5 +1,4 @@
 
-import { addWorkGalleryAndModal } from "./modal-gallery.js";
 
 const modalWindow = document.querySelector(".modalWindow");
 

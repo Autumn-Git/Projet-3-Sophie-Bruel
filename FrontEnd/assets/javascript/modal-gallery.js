@@ -1,5 +1,5 @@
-import { readStorageWorks, saveWorks } from "./storage.js";
-import { displayWorks, createWorkFigure } from "./gallery.js";
+
+import { createWorkFigure } from "./gallery.js";
 import { changeModalImage } from "./modal-add.js";
 import { initAddForm } from "./modal-add.js";
 
@@ -61,7 +61,6 @@ function createWorkModalFigure(work) {
 
 export function displayWorksModal(works) {
   const displayGalleryModal = document.getElementById("displayGalleryModal");
-  displayGalleryModal.replaceChildren();
 
   for (let i = 0; i < works.length; i++) {
     displayGalleryModal.appendChild(createWorkModalFigure(works[i]));
