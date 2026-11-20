@@ -20,18 +20,17 @@ Le front-end a été développé en JavaScript, à partir du HTML et du CSS four
 - **Fenêtre modale** en deux vues :
   - la **galerie**, pour supprimer un projet ;
   - le **formulaire d'ajout**, avec un aperçu de l'image, la liste des catégories et une vérification des champs.
-- Les ajouts et les suppressions mettent à jour les galeries **sans recharger la page**.
+- Les ajouts et les suppressions mettent à jour les galeries **sans recharger la page** : seul le projet concerné est ajouté ou retiré, sans réafficher toute la galerie.
 
 ### Gestion des erreurs
 
 - Un message s'affiche dans la page si le serveur ne répond pas, si la session a expiré ou si un champ du formulaire est vide.
-- Si le serveur est injoignable, le site affiche la dernière liste de projets enregistrée, avec un avertissement.
 - Si les catégories ne se chargent pas, la galerie reste affichée, sans les filtres.
 
 ## Technologies
 
 - HTML5, CSS3
-- JavaScript (modules ES, `fetch`, `FormData`, `sessionStorage`, `localStorage`)
+- JavaScript (modules ES, `fetch`, `FormData`, `localStorage`, attributs `data-*`)
 - API Node.js / Express (fournie)
 - Outils : Visual Studio Code, Live Server, Prettier, Figma, GitHub
 
@@ -64,10 +63,9 @@ Le JavaScript est découpé en modules : chaque fichier a un rôle précis. Les 
 | `main.js` | Point d'entrée de la page d'accueil : vérifie si l'utilisatrice est connectée, puis lance la galerie, les filtres et le mode édition |
 | `load.js` | Charge les projets et les catégories depuis l'API, les affiche, gère leurs erreurs et prépare le mode édition si l'utilisatrice est connectée |
 | `api.js` | Récupère les projets et les catégories depuis l'API |
-| `storage.js` | Enregistre et relit la liste des projets dans le `sessionStorage` |
-| `gallery.js` | Affiche la galerie et gère les filtres |
+| `gallery.js` | Crée et affiche les projets de la galerie, et gère les filtres |
 | `edition.js` | Active le mode édition et la déconnexion |
-| `modal-gallery.js` | Ouvre et ferme la modale, affiche les miniatures et gère la suppression |
+| `modal-gallery.js` | Ouvre et ferme la modale, affiche les miniatures, gère la suppression et ajoute un nouveau projet aux deux galeries |
 | `modal-add.js` | Gère le formulaire d'ajout : aperçu de l'image, catégories, vérifications et envoi |
 | `connexion.js` | Gère le formulaire de la page de connexion |
 
