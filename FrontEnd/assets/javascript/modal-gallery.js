@@ -1,4 +1,4 @@
-
+import { API_URL } from "./api.js";
 import { createWorkFigure } from "./gallery.js";
 import { changeModalImage } from "./modal-add.js";
 import { initAddForm } from "./modal-add.js";
@@ -10,11 +10,10 @@ const modalWindow = document.querySelector(".modalWindow");
 const closeModal = document.querySelectorAll(".closeModal");
 const btnGalleryModal = document.getElementById("btnGalleryModal");
 const returnGalleryModal = document.getElementById("returnGalleryModal");
-const body = document.querySelector("body");
+
 
 function closeModalOnClickOutside(event) {
   if (event.target === modalWindow) {
-    // si on clique pas sur la modal, on ferme la modal.
     modalWindow.style.display = "none";
   }
 }
@@ -22,8 +21,9 @@ function closeModalOnClickOutside(event) {
 function openAndCloseModal(event) {
   event.preventDefault();
 
-  //essayer de mettre des classes plutot que le css dans le js
   if (this.id === "openModal") {
+    galleryModal.style.display = "flex";
+    addModal.style.display = "none";
     modalWindow.style.display = "flex";
   } else if (this.classList.contains("closeModal")) {
     modalWindow.style.display = "none";
@@ -53,9 +53,9 @@ function createWorkModalFigure(work) {
   workFigureModal.appendChild(trashElementModal);
 
   trashElementModal.addEventListener("click", function () {
-    // quand on click sur la corbeille, le travaux qui porte l'id est sup (on appelle la fonction de suppression)
     deleteWorks(work.id);
   });
+
   return workFigureModal;
 }
 
@@ -71,10 +71,10 @@ function deleteWorks(workId) {
   const errorMessage = document.getElementById("deleteError");
   const token = localStorage.getItem("token");
 
-  fetch(`http://localhost:5678/api/works/${workId}`, {
+  fetch(`${API_URL}/works/${workId}`, {
     method: "DELETE",
     headers: {
-      Authorization: `Bearer ${token}`, // le token doit etre valide
+      Authorization: `Bearer ${token}`, 
     },
   })
     .then(function (response) {
@@ -96,7 +96,6 @@ function deleteWorks(workId) {
       errorMessage.innerText =
         "La demande a échoué. Veuillez réessayer en vérifiant votre connexion.";
       errorMessage.classList.add("error-message");
-
       console.error(error);
     });
 }
@@ -105,16 +104,15 @@ export function initModal() {
   changeModalImage();
   initAddForm(addWorkGalleryAndModal);
 
-  openModal.addEventListener("click", openAndCloseModal); // quand on clique sur modfier on appelle cette fonction
+  openModal.addEventListener("click", openAndCloseModal); 
   closeModal.forEach((button) => {
-    // chacun des deux croix
     button.addEventListener("click", openAndCloseModal);
   });
 
   btnGalleryModal.addEventListener("click", openAndCloseModal);
   returnGalleryModal.addEventListener("click", openAndCloseModal);
 
-  body.addEventListener("click", closeModalOnClickOutside);
+  modalWindow.addEventListener("click", closeModalOnClickOutside); 
 }
 
 export function addWorkGalleryAndModal(work) {

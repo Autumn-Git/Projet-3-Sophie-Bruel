@@ -4,19 +4,19 @@ import { handleEditionModeDisplay } from "./edition.js";
 import { displayWorksModal, initModal } from "./modal-gallery.js";
 import { fillCategoryForm } from "./modal-add.js";
 
-
 const errorGallery = document.getElementById("errorGallery");
 
 
 export function initWorks(isAuthenticated) {
   getWorks()
     .then((works) => {
-      displayWorks(works); // afficher la galerie
+      displayWorks(works); 
 
       if (isAuthenticated) {
         displayWorksModal(works);
       }
     })
+
     .catch((error) => {
       console.error("Erreur lors de la récupération des travaux :", error);
       errorGallery.classList.add("error-message");
@@ -24,6 +24,7 @@ export function initWorks(isAuthenticated) {
         "Impossible de charger les projets. Veuillez réessayer plus tard.";
     });
 }
+
 
 export function initCategories(isAuthenticated) {
   getCategories()
@@ -38,6 +39,7 @@ export function initCategories(isAuthenticated) {
       console.error("Erreur lors de la récupération des categories :", error);
     });
 }
+
 
 export function initEditionMode(isAuthenticated) {
   if (isAuthenticated) {

@@ -1,9 +1,9 @@
-
+import { API_URL } from "./api.js";
 
 const modalWindow = document.querySelector(".modalWindow");
 
-export function changeModalImage() {
 
+export function changeModalImage() {
   const addImage = document.getElementById("addImage");
   const fileInput = document.getElementById("fileInput");
   const iconAddImage = document.querySelector(".iconAddImage");
@@ -12,60 +12,50 @@ export function changeModalImage() {
   const previewImage = document.getElementById("previewImage");
 
   addImage.addEventListener("click", () => {
-    fileInput.click(); // on va chercher els fichiers sur l'ordi
+    fileInput.click();
   });
 
   fileInput.addEventListener("change", () => {
-    const image = fileInput.files[0]; // on la remplace
+    const image = fileInput.files[0];
 
-    if (image) { // si on recoit bien l'image voila ce qu'on fait :
-
+    if (image) {
       previewImage.src = URL.createObjectURL(image);
       iconAddImage.style.display = "none";
       addImageModal.style.padding = 0;
       textAddImage.classList.add("hidden");
       addImage.classList.add("hidden");
       previewImage.classList.remove("hidden");
-
     }
   });
 }
 
 
-//Elle remplit la liste déroulante avec les catégories venues de l’API.
 export function fillCategoryForm(categories) {
-
   const categorySelect = document.getElementById("categorySelect");
-
   const optionDefault = document.createElement("option");
   optionDefault.innerText = "";
   optionDefault.value = "";
-
   categorySelect.appendChild(optionDefault);
 
   for (let i = 0; i < categories.length; i++) {
-
     const option = document.createElement("option");
     option.innerText = categories[i].name;
     option.value = categories[i].id;
     categorySelect.appendChild(option);
-
   }
 }
 
 
-
 export function initAddForm(handleAddSuccess) {
-
   const formAddPhoto = document.getElementById("formAddPhoto");
   const errorSelect = document.getElementById("errorSelect");
 
   formAddPhoto.addEventListener("submit", (event) => {
-    event.preventDefault(); // on lit les valeurs avant d'envoyer
+    event.preventDefault();
 
     const fileInput = document.getElementById("fileInput");
     const image = fileInput.files[0];
-    const title = document.getElementById("title").value.trim(); //retire les espaces
+    const title = document.getElementById("title").value.trim();
     const category = document.getElementById("categorySelect").value;
 
     if (!image) {
@@ -86,7 +76,7 @@ export function initAddForm(handleAddSuccess) {
       return;
     }
 
-    errorSelect.innerText = ""; // si pas d'erreur on marque rien
+    errorSelect.innerText = "";
 
     const formData = new FormData();
     formData.append("image", image);
@@ -95,7 +85,7 @@ export function initAddForm(handleAddSuccess) {
 
     const token = localStorage.getItem("token");
 
-    fetch("http://localhost:5678/api/works", {
+    fetch(`${API_URL}/works`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -111,10 +101,8 @@ export function initAddForm(handleAddSuccess) {
       })
 
       .then((newWork) => {
-        newWork.categoryId = parseInt(newWork.categoryId); // mets la categorie en nb
-
-        handleAddSuccess(newWork)
-
+        newWork.categoryId = parseInt(newWork.categoryId);
+        handleAddSuccess(newWork);
         resetAddForm();
         modalWindow.style.display = "none";
       })
@@ -148,6 +136,3 @@ function resetAddForm() {
   textAddImage.classList.remove("hidden");
   addImage.classList.remove("hidden");
 }
-
-
-
