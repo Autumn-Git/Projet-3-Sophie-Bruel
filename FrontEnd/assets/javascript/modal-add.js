@@ -46,9 +46,31 @@ export function fillCategoryForm(categories) {
 }
 
 
+function btnChangeValidation(){
+  const btnForm = document.getElementById("btnForm");
+  const fileInput = document.getElementById("fileInput");
+  const image = fileInput.files[0];
+  const title = document.getElementById("title").value.trim();
+  const category = document.getElementById("categorySelect").value;
+
+  if (image && category && title) {
+      btnForm.style.background = "#1d6154";
+    } else{
+     btnForm.style.background = "#b3b3b3";
+    }
+}
+
+
 export function initAddForm(handleAddSuccess) {
   const formAddPhoto = document.getElementById("formAddPhoto");
   const errorSelect = document.getElementById("errorSelect");
+
+  const fileInput = document.getElementById("fileInput");
+  const titleInput = document.getElementById("title");
+  const categorySelect = document.getElementById("categorySelect");
+  fileInput.addEventListener( "change", btnChangeValidation );
+  titleInput.addEventListener( "input", btnChangeValidation );
+  categorySelect.addEventListener( "change", btnChangeValidation );
 
   formAddPhoto.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -104,6 +126,7 @@ export function initAddForm(handleAddSuccess) {
         newWork.categoryId = parseInt(newWork.categoryId);
         handleAddSuccess(newWork);
         resetAddForm();
+        btnChangeValidation();
         modalWindow.style.display = "none";
       })
 
